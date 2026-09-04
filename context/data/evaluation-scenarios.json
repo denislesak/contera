@@ -5,8 +5,11 @@
   "scenarios": [
     {
       "id": "scenario-001",
+      "semantic_id": "EVAL-001",
       "title": "Predicted inventory collision",
-      "status": "DEFINED_EVALUATION_SCENARIO",
+      "status": "DEFINED",
+      "qualifier": "defined evaluation scenario",
+      "feature_id": "FEATURE-001",
       "feature_ref": "context/features/feature-001-predicted-conflict.md",
       "situation": {
         "time": "8:00 AM",
@@ -51,8 +54,11 @@
     },
     {
       "id": "scenario-002",
+      "semantic_id": "EVAL-002",
       "title": "Suspected new equipment damage",
-      "status": "DEFINED_EVALUATION_SCENARIO",
+      "status": "DEFINED",
+      "qualifier": "defined evaluation scenario",
+      "feature_id": "FEATURE-002",
       "feature_ref": "context/features/feature-002-damage-review.md",
       "situation": {
         "time": "4:15 PM",
@@ -105,8 +111,11 @@
     },
     {
       "id": "scenario-003",
+      "semantic_id": "EVAL-003",
       "title": "Possible safety-critical equipment issue",
-      "status": "DEFINED_EVALUATION_SCENARIO",
+      "status": "DEFINED",
+      "qualifier": "defined evaluation scenario",
+      "feature_id": "FEATURE-003",
       "feature_ref": "context/features/feature-003-safety-intervention.md",
       "situation": {
         "time": "7:40 AM",

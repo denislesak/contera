@@ -6,7 +6,8 @@
       "id": "threshold",
       "name": "Contera Threshold Design System",
       "version": "0.1",
-      "status": "WORKING_DESIGN_SPECIFICATION",
+      "status": "WORKING_HYPOTHESIS",
+      "qualifier": "Document-level status is 'Working design specification' in design-system.md — the system as a whole is still being iterated on. This is distinct from the per-claim DEFINED/WORKING_HYPOTHESIS status of individual sections; see context/data/design-tokens.json for those.",
       "description": "The single currently supported presentation system. Governs color, type, the governance-tier visual language, and icons. See context/data/design-tokens.json for its token values.",
       "source": "design-system.md, header"
     }

@@ -5,6 +5,7 @@
   "actors": [
     {
       "id": "counter-agent",
+      "semantic_id": "ACTOR-COUNTER-AGENT",
       "name": "Counter Agent",
       "status": "DEFINED",
       "capabilities": [
@@ -21,6 +22,7 @@
     },
     {
       "id": "yard-associate",
+      "semantic_id": "ACTOR-YARD-ASSOCIATE",
       "name": "Yard Associate",
       "status": "DEFINED",
       "capabilities": [
@@ -37,6 +39,7 @@
     },
     {
       "id": "branch-manager",
+      "semantic_id": "ACTOR-BRANCH-MANAGER",
       "name": "Branch Manager",
       "status": "DEFINED",
       "capabilities": [
@@ -52,6 +55,7 @@
     },
     {
       "id": "fleet-manager",
+      "semantic_id": "ACTOR-FLEET-MANAGER",
       "name": "Fleet Manager",
       "status": "DEFINED",
       "capabilities": [
@@ -66,6 +70,7 @@
     },
     {
       "id": "operations-agent",
+      "semantic_id": "ACTOR-OPERATIONS-AGENT",
       "name": "Operations Agent",
       "status": "DEFINED",
       "type": "non-human product actor",
@@ -85,21 +90,22 @@
     }
   ],
   "core_objects": [
-    { "id": "customer", "name": "Customer", "status": "DEFINED", "definition": "A person or organization renting equipment.", "source": "product.md §2.2" },
-    { "id": "equipment", "name": "Equipment", "status": "DEFINED", "definition": "A physical rental asset.", "source": "product.md §2.2" },
-    { "id": "reservation", "name": "Reservation", "status": "DEFINED", "definition": "Future intent to rent equipment or an equipment type.", "source": "product.md §2.2" },
-    { "id": "rental", "name": "Rental", "status": "DEFINED", "definition": "An active or historical contractual use of equipment by a customer.", "source": "product.md §2.2" },
-    { "id": "location", "name": "Location", "status": "DEFINED", "definition": "A branch or other operational location where equipment resides or rental activity occurs.", "source": "product.md §2.2" },
-    { "id": "inspection", "name": "Inspection", "status": "DEFINED", "definition": "A structured assessment of equipment condition.", "source": "product.md §2.2" },
-    { "id": "evidence", "name": "Evidence", "status": "DEFINED", "definition": "Information supporting an observation, inference, recommendation, or decision. Examples: photos, video, voice observations, notes, meter readings, signatures, inspection records, maintenance records.", "source": "product.md §2.2" },
-    { "id": "damage", "name": "Damage", "status": "DEFINED", "definition": "A recorded or suspected physical condition affecting equipment.", "source": "product.md §2.2" },
-    { "id": "maintenance-event", "name": "Maintenance Event", "status": "DEFINED", "definition": "Maintenance work required, scheduled, recommended, or performed on equipment.", "source": "product.md §2.2" },
-    { "id": "payment-charge", "name": "Payment / Charge", "status": "DEFINED", "definition": "A financial transaction or proposed financial transaction associated with a rental or customer.", "source": "product.md §2.2" },
-    { "id": "communication", "name": "Communication", "status": "DEFINED", "definition": "A customer or operational communication such as call, SMS, email, or system-generated message.", "source": "product.md §2.2" },
-    { "id": "agent-action", "name": "Agent Action", "status": "DEFINED", "definition": "An observation, recommendation, preparation, or execution performed by the Operations Agent.", "source": "product.md §2.2" },
-    { "id": "approval", "name": "Approval", "status": "DEFINED", "definition": "Human authorization associated with an action that requires review before execution.", "note": "Dual status: also an interaction primitive in context/behaviors.md, representing the same underlying concept from the authorization-experience angle. See product.md §2.6.", "source": "product.md §2.2, §2.6" },
+    { "id": "customer", "semantic_id": "OBJECT-CUSTOMER", "name": "Customer", "status": "DEFINED", "definition": "A person or organization renting equipment.", "source": "product.md §2.2" },
+    { "id": "equipment", "semantic_id": "OBJECT-EQUIPMENT", "name": "Equipment", "status": "DEFINED", "definition": "A physical rental asset.", "source": "product.md §2.2" },
+    { "id": "reservation", "semantic_id": "OBJECT-RESERVATION", "name": "Reservation", "status": "DEFINED", "definition": "Future intent to rent equipment or an equipment type.", "source": "product.md §2.2" },
+    { "id": "rental", "semantic_id": "OBJECT-RENTAL", "name": "Rental", "status": "DEFINED", "definition": "An active or historical contractual use of equipment by a customer.", "source": "product.md §2.2" },
+    { "id": "location", "semantic_id": "OBJECT-LOCATION", "name": "Location", "status": "DEFINED", "definition": "A branch or other operational location where equipment resides or rental activity occurs.", "source": "product.md §2.2" },
+    { "id": "inspection", "semantic_id": "OBJECT-INSPECTION", "name": "Inspection", "status": "DEFINED", "definition": "A structured assessment of equipment condition.", "source": "product.md §2.2" },
+    { "id": "evidence", "semantic_id": "OBJECT-EVIDENCE", "name": "Evidence", "status": "DEFINED", "definition": "Information supporting an observation, inference, recommendation, or decision. Examples: photos, video, voice observations, notes, meter readings, signatures, inspection records, maintenance records.", "source": "product.md §2.2" },
+    { "id": "damage", "semantic_id": "OBJECT-DAMAGE", "name": "Damage", "status": "DEFINED", "definition": "A recorded or suspected physical condition affecting equipment.", "source": "product.md §2.2" },
+    { "id": "maintenance-event", "semantic_id": "OBJECT-MAINTENANCE-EVENT", "name": "Maintenance Event", "status": "DEFINED", "definition": "Maintenance work required, scheduled, recommended, or performed on equipment.", "source": "product.md §2.2" },
+    { "id": "payment-charge", "semantic_id": "OBJECT-PAYMENT-CHARGE", "name": "Payment / Charge", "status": "DEFINED", "definition": "A financial transaction or proposed financial transaction associated with a rental or customer.", "source": "product.md §2.2" },
+    { "id": "communication", "semantic_id": "OBJECT-COMMUNICATION", "name": "Communication", "status": "DEFINED", "definition": "A customer or operational communication such as call, SMS, email, or system-generated message.", "source": "product.md §2.2" },
+    { "id": "agent-action", "semantic_id": "OBJECT-AGENT-ACTION", "name": "Agent Action", "status": "DEFINED", "definition": "An observation, recommendation, preparation, or execution performed by the Operations Agent.", "source": "product.md §2.2" },
+    { "id": "approval", "semantic_id": "OBJECT-APPROVAL", "name": "Approval", "status": "DEFINED", "definition": "Human authorization associated with an action that requires review before execution.", "note": "Dual status: also an interaction primitive in context/behaviors.md, representing the same underlying concept from the authorization-experience angle. See product.md §2.6.", "source": "product.md §2.2, §2.6" },
     {
       "id": "equipment-turnaround-requirement",
+      "semantic_id": "OBJECT-EQUIPMENT-TURNAROUND-REQUIREMENT",
       "name": "Equipment Turnaround Requirement",
       "status": "WORKING_HYPOTHESIS",
       "definition": "Information representing the time or work necessary to make returned equipment ready for its next rental, potentially including inspection, cleaning, refueling, or maintenance.",
@@ -108,6 +114,7 @@
     },
     {
       "id": "estimated-ready-time",
+      "semantic_id": "OBJECT-ESTIMATED-READY-TIME",
       "name": "Estimated Ready Time",
       "status": "DEFINED",
       "approval_basis": "approved via Feature 001 cross-functional review",
@@ -126,7 +133,8 @@
     { "subject": "approval", "status": "DEFINED", "statements": ["is requested for an action", "is granted or rejected by an authorized human actor", "should remain attributable to the approving actor"], "source": "product.md §2.3" },
     {
       "subject": "derived-conflict-relationship",
-      "status": "DEFINED_AS_SCOPING_DECISION",
+      "status": "DEFINED",
+      "qualifier": "defined as a scoping decision, not as a general ontology rule",
       "approval_basis": "approved via Feature 001 cross-functional review",
       "description": "A potential conflict between an active Rental and a downstream Reservation for the same Equipment or equipment type is represented as a derived/computed relationship, evaluated at prediction time — not persisted as a new core ontology relationship.",
       "explicitly_declined": [

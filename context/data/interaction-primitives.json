@@ -14,6 +14,7 @@
   "primitives": [
     {
       "id": 1,
+      "semantic_id": "PRIMITIVE-001",
       "name": "Finding",
       "purpose": "Present what the Operations Agent has observed, compared, or inferred, without asserting more certainty than the evidence supports.",
       "agent_states_supported": ["Observe"],
@@ -25,6 +26,7 @@
     },
     {
       "id": 2,
+      "semantic_id": "PRIMITIVE-002",
       "name": "Evidence Inspection",
       "purpose": "Let a human examine the underlying evidence, its quality, and its limitations behind a Finding, Recommendation, Prepared Action, Approval, or Escalation.",
       "agent_states_supported": ["Observe"],
@@ -35,6 +37,7 @@
     },
     {
       "id": 3,
+      "semantic_id": "PRIMITIVE-003",
       "name": "Recommendation",
       "purpose": "Suggest a next action without committing to it.",
       "agent_states_supported": ["Recommend"],
@@ -45,6 +48,7 @@
     },
     {
       "id": 4,
+      "semantic_id": "PRIMITIVE-004",
       "name": "Prepared Action",
       "purpose": "Present an agent-created artifact or action that is ready for human inspection, editing, routing, authorization, handoff, or execution.",
       "agent_states_supported": ["Prepare"],
@@ -56,6 +60,7 @@
     },
     {
       "id": 5,
+      "semantic_id": "PRIMITIVE-005",
       "name": "Approval",
       "purpose": "Provide the governance interaction through which an authorized human permits or rejects execution of a Prepared Action.",
       "agent_states_supported": [],
@@ -68,6 +73,7 @@
     },
     {
       "id": 6,
+      "semantic_id": "PRIMITIVE-006",
       "name": "Escalation",
       "purpose": "Route a Finding or Prepared Action to a specific role or higher-authority actor, rather than letting the current actor resolve it.",
       "agent_states_supported": ["Prepare", "Execute-blocking (sometimes)"],
@@ -78,6 +84,7 @@
     },
     {
       "id": 7,
+      "semantic_id": "PRIMITIVE-007",
       "name": "Correction",
       "purpose": "Let an authorized human resolve ambiguity in a Finding — determine what's actually true — rather than merely approving or rejecting a proposed action.",
       "agent_states_supported": ["Observe", "Recommend", "Prepare"],
@@ -88,6 +95,7 @@
     },
     {
       "id": 8,
+      "semantic_id": "PRIMITIVE-008",
       "name": "Progress",
       "purpose": "Show where a given Agent Action currently sits in its capability/governance lifecycle, and — where required — actively hold up an ordinary workflow until that lifecycle resolves.",
       "agent_states_supported": ["Observe", "Recommend", "Prepare", "Execute", "terminal outcome/failure state"],
@@ -99,6 +107,7 @@
     },
     {
       "id": 9,
+      "semantic_id": "PRIMITIVE-009",
       "name": "Resolution Alternatives",
       "purpose": "When the agent's own behavior introduces friction — a block, delay, or escalation — proactively offer safe ways forward rather than leaving the human with only a stop.",
       "agent_states_supported": ["Prepare"],

@@ -8,20 +8,29 @@ This manifest does not restate product, behavioral, or design content. It govern
 
 ---
 
-## 1. Provenance
+## 1. Canonical source of truth and provenance
 
-Every artifact under `/context` and `/agents` is derived from exactly four immutable source documents in `/source`:
+**`/context` is the canonical source of truth for the Contera Context System.** It is authoritative on its own terms, effective immediately. Product, Design, and Engineering read and evolve `/context` directly; nothing about its authority is contingent on `/source`.
 
-| Source document | Canonical context document | Governs |
+**`/source` is historical provenance only.** It contains the four documents that originally informed this Context System's initial migration. It is retained so that anyone auditing a canonical document can see where its content first came from, and it carries no ongoing authority. Concretely:
+
+- `/source` must not be edited as part of normal product evolution. It is not a place changes land.
+- `/source` is not deleted, either — it stays as a historical record — but it is frozen, not maintained.
+- **No re-migration from `/source` is expected, scheduled, or required.** `/context` is not "kept in sync" with `/source`; once migrated, `/context` stands on its own. This eliminates `/source` ↔ `/context` synchronization as an architectural requirement — there is nothing to keep in sync, because `/source` is no longer a live input to anything.
+- Historical provenance must never be read as current authority. A canonical document's header noting it was "originally migrated from `source/X.md`" is a historical fact about where the document came from, not a claim that `source/X.md` still governs it, still matches it, or would win a disagreement with it. `/context` alone governs.
+
+Historical mapping, preserved for provenance only — **not** an active sync relationship:
+
+| Historical source document | Context artifact it originally informed | Originally covered |
 |---|---|---|
 | `source/product.md` | `context/product.md` | Product ontology, agent capability model, governance/permission model, risk model, Experience Constitution (Rules 001–011), evaluation scenarios 001–003, open policy questions |
 | `source/behaviors.md` | `context/behaviors.md` | Interaction primitives (Finding, Evidence Inspection, Recommendation, Prepared Action, Approval, Escalation, Correction, Progress, Resolution Alternatives) |
 | `source/components.md` | `context/components.md` | Machine-readable implementation contracts for Finding, Prepared Action, Approval |
 | `source/design-system.md` | `context/design-system.md` | Visual presentation: color, type, governance-tier visual language, icons |
 
-`/source` is immutable. It is never edited, renamed, or deleted as part of maintaining this Context System. When source content changes, that change happens in `/source` first, through whatever process governs that document, and the corresponding `/context` artifact is then re-migrated.
+**Changes to product behavior now occur through the Context System's own governance process** (`context/product.md` §10, Change governance): a proposed change is analyzed, cross-functionally reviewed, and — once approved — written directly into the relevant `context/*.md` document(s) and propagated to their derived `context/data/*.json` and `context/features/*.md` artifacts. `/source` plays no role in this process.
 
-`context/features/*`, `context/data/*`, and `context/evaluation/evaluation-system.md` are **derived** artifacts — they restructure and cross-reference the four canonical documents above. They do not introduce content the canonical documents do not already support.
+`context/features/*`, `context/data/*`, and `context/evaluation/evaluation-system.md` remain **derived** artifacts — they restructure and cross-reference the canonical `context/*.md` documents (`product.md`, `behaviors.md`, `components.md`, `design-system.md`) directly. They do not introduce content those documents do not already support, and their derivation relationship is with those `context/*.md` documents, not with `/source`.
 
 ---
 
@@ -118,6 +127,7 @@ A statement can be DEFINED product policy and still only [DOC]-enforced at the i
 - In JSON (`context/data/*.json`), an unresolved field is represented as `null` or `"UNRESOLVED"` (matching the convention already used in `components.md`'s `GovernanceOutcome` type, which includes `"UNRESOLVED"` as a legitimate value, not an error state) plus a sibling `note` or `unresolved_ref` field citing where the gap is documented in the canonical Markdown.
 - In feature files, an unresolved dependency is listed under that feature's "Unresolved policy" section rather than answered.
 - Components.md's own pattern is the model for the rest of the system: `blockedByUnresolvedPolicy` is a first-class, machine-detectable state — not a fallback to the nearest-seeming resolved value (the document explicitly rejects defaulting `"UNRESOLVED"` governance to `"ApprovalRequired"` as itself a fabricated policy). Apply that same discipline anywhere else this system represents an open question.
+- Every individual unresolved-policy question in `context/data/policy-registry.json`'s `unresolved_policy_registry` carries a stable `POLICY-###` id (see `context/id-scheme.md` §3). This lets a future proposal or Context Diff cite a specific open question precisely (e.g., "this resolves POLICY-014") rather than restating its text.
 
 ---
 
@@ -134,12 +144,13 @@ Markdown carries meaning; JSON carries structure. Concretely:
 
 ## 8. Traceability expectations
 
-- Every canonical `context/*.md` document should identify, near the top or inline, which `source/*.md` document and section it derives from.
+- Every canonical `context/*.md` document identifies, near the top, which `source/*.md` document historically informed it. This is provenance, not an active dependency — see §1.
 - Every feature file should cite the specific scenario, section, and rule numbers it draws from (e.g., "product.md §7.1", "Scenario 001", "Rule 009").
 - Every JSON record should carry a `source` field (document + section identifier) wherever practical. Line numbers are not fabricated — cite section headings and rule/primitive identifiers, which are stable, rather than line numbers, which are not durable across edits.
 - Experience Rules keep their numeric identifiers (001–011) unchanged everywhere they are cited, so they remain traceable across `product.md`, `behaviors.md`, feature files, `policy-registry.json`, and `evaluation-system.md`.
 - Interaction primitives keep their numeric identifiers (1–9, as enumerated in `behaviors.md`) unchanged everywhere they are cited.
 - Governance outcomes (Permitted / Approval Required / Escalation Required / Prohibited) and capability tiers (Observe / Recommend / Prepare / Execute) keep their exact names unchanged everywhere, matching `components.md`'s `GovernanceOutcome` type and `product.md` Section 3's tier names, so a string match against the canonical documents is always possible.
+- **`context/id-scheme.md`** is the canonical reference for stable, resolvable semantic IDs (`RULE-###`, `PRIMITIVE-###`, `FEATURE-###`, `POLICY-###`, `EVAL-###`, `OBJECT-<NAME>`, `ACTOR-<NAME>`, `COMPONENT-<NAME>`) — durable identifiers derived from an entity's own existing number or name, never from a Markdown section location. Prose citations (e.g., "product.md §7.1") remain valid and useful as pointers to where text lives; semantic IDs exist alongside them as pointers to what an entity is, for anything that needs to resolve a reference programmatically (Context Explorer navigation, Context Inspector trace-back, Context Lab diff-targeting).
 
 ---
 
@@ -158,3 +169,16 @@ Before analyzing or implementing anything against this system, read in this orde
 9. **`agents/instructions.md`** — the operating procedure for the implementation step itself.
 
 `agents/instructions.md` restates a condensed version of this order for direct use during implementation; this manifest is the authoritative version.
+
+---
+
+## 10. Implementation bindings (non-authoritative)
+
+`/registry` (outside `/context`) documents a convention — not yet populated — for how a future rendered surface declares which Context System entities govern it, using the semantic IDs from `context/id-scheme.md`. See `/registry/README.md` for the convention itself.
+
+Two points of authority apply here, stated explicitly because this is the one place outside `/context` that references it directly:
+
+- **A binding is a declaration of traceability, not a grant of authority.** It records a claim about what a surface implements; it does not make that claim true, and it does not change what `context/product.md` actually authorizes.
+- **An implementation binding must never override Product Context.** If a binding's declared `governanceOutcome` or any other field disagrees with what the canonical documents establish, the canonical documents win, exactly as §3 already establishes for every other artifact — `/registry` is not exempted from, or added to, the authority hierarchy in §3. It sits entirely outside it, downstream, describing implementation rather than competing to define meaning.
+
+`/registry/bindings/` is deliberately empty. It is reserved so that Context Inspector and Context Lab have a defined destination once the application they inspect actually exists, without requiring this manifest or the authority hierarchy to change when that happens.

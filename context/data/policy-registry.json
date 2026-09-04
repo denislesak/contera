@@ -2,7 +2,8 @@
   "$description": "Structured representation of Contera's agent capability model, governance/permission model, risk model, Experience Constitution (Rules 001-011), and the registry of unresolved policy questions. Derived from context/product.md Sections 3, 4, 5, 6, 7, 9. Non-authoritative — see context/manifest.md §7.",
   "source_document": "context/product.md",
   "agent_capability_tiers": {
-    "status": "DEFINED_AS_CONCEPTUAL_MODEL",
+    "status": "DEFINED",
+    "qualifier": "defined as a conceptual model; specific action-to-tier mappings remain partly UNRESOLVED (see product.md §3)",
     "note": "Capability describes what the Operations Agent is technically/product-wise capable of. Capability does not determine whether the agent is permitted to perform the action autonomously — see governance_outcomes.",
     "source": "product.md §3",
     "tiers": [
@@ -13,7 +14,8 @@
     ]
   },
   "governance_outcomes": {
-    "status": "DEFINED_CONCEPTUALLY",
+    "status": "DEFINED",
+    "qualifier": "defined conceptually (product.md §4.2)",
     "note": "Agent capability and governance are separate dimensions (product.md §4.1). Observe->Recommend->Prepare->Execute->Escalate is explicitly NOT one linear authority ladder (invalidated by Scenario 002).",
     "source": "product.md §4.2",
     "outcomes": [
@@ -102,22 +104,23 @@
     }
   },
   "experience_rules": [
-    { "id": "001", "title": "Resolve material uncertainty before consequential action", "status": "DEFINED", "text": "When missing or conflicting information could materially change a consequential outcome, seek the strongest available evidence before recommending or executing that outcome.", "source": "product.md §6" },
-    { "id": "002", "title": "Separate potential impact from intervention urgency", "status": "DEFINED", "text": "Potential consequence and required intervention timing are independent dimensions. Do not use one generic severity value to represent both.", "source": "product.md §6" },
-    { "id": "003", "title": "Prefer inspectable evidence over opaque confidence", "status": "DEFINED", "text": "When practical, expose the observations, evidence, limitations, and assumptions supporting an AI inference rather than relying on an unexplained numerical confidence score.", "source": "product.md §6" },
-    { "id": "004", "title": "Reduce autonomy as consequence and irreversibility increase", "status": "DEFINED", "text": "Agent authority should consider the potential impact of an incorrect action and how easily that action can be reversed. Directional, not a complete decision algorithm.", "source": "product.md §6" },
-    { "id": "005", "title": "Preserve the distinction between observation, inference, recommendation, and human decision", "status": "DEFINED", "text": "The system must not collapse different epistemic stages into a stronger claim than the evidence supports.", "epistemic_chain": ["Observation", "Comparison", "Inference", "Recommendation", "Human determination", "Business action"], "source": "product.md §6" },
-    { "id": "006", "title": "Apply asymmetric thresholds to high-consequence uncertainty", "status": "DEFINED", "text": "When plausible outcomes have materially different severity, the evidentiary threshold for proceeding should reflect the more consequential failure mode.", "source": "product.md §6" },
-    { "id": "007", "title": "When AI introduces friction, help resolve the consequences", "status": "DEFINED", "text": "If the system blocks, delays, or escalates an action, it should proactively identify safe paths forward where possible rather than merely stopping the user.", "source": "product.md §6" },
-    { "id": "008", "title": "Do not substitute assumptions for missing product policy", "status": "DEFINED", "text": "When required product behavior, policy, permissions, evidence, or domain information is undefined, the system must identify the gap and request human resolution rather than silently inventing a rule. Applies both to AI inside Contera and to AI assisting the product team in maintaining Contera's specification.", "source": "product.md §6" },
-    { "id": "009", "title": "Revalidate mutable state before consequential execution", "status": "DEFINED", "approval_basis": "approved via Feature 001 cross-functional review", "text": "An agent must confirm that the facts and conditions supporting a prepared action remain valid immediately before execution when relevant state may have changed. Establishes the general principle only; per-action fields to revalidate are defined per action as they arise.", "source": "product.md §6" },
-    { "id": "010", "title": "Prioritize interventions according to urgency and consequence", "status": "DEFINED", "approval_basis": "proposed via Feature 001 experience evaluation", "text": "Intelligent interventions should be placed according to the urgency and consequence of the user decision, not merely according to the information architecture of the underlying data. Use the least interruptive treatment sufficient for the intervention window and potential consequence.", "source": "product.md §6" },
-    { "id": "011", "title": "Use progressive disclosure to minimize decision burden", "status": "DEFINED", "approval_basis": "proposed via Feature 001 experience evaluation", "text": "Show only the information necessary to understand the situation and make the immediate decision. Supporting evidence, reasoning, provenance, uncertainty details, and prepared-action metadata should remain inspectable when relevant but need not be simultaneously visible.", "source": "product.md §6" }
+    { "id": "001", "semantic_id": "RULE-001", "title": "Resolve material uncertainty before consequential action", "status": "DEFINED", "text": "When missing or conflicting information could materially change a consequential outcome, seek the strongest available evidence before recommending or executing that outcome.", "source": "product.md §6" },
+    { "id": "002", "semantic_id": "RULE-002", "title": "Separate potential impact from intervention urgency", "status": "DEFINED", "text": "Potential consequence and required intervention timing are independent dimensions. Do not use one generic severity value to represent both.", "source": "product.md §6" },
+    { "id": "003", "semantic_id": "RULE-003", "title": "Prefer inspectable evidence over opaque confidence", "status": "DEFINED", "text": "When practical, expose the observations, evidence, limitations, and assumptions supporting an AI inference rather than relying on an unexplained numerical confidence score.", "source": "product.md §6" },
+    { "id": "004", "semantic_id": "RULE-004", "title": "Reduce autonomy as consequence and irreversibility increase", "status": "DEFINED", "text": "Agent authority should consider the potential impact of an incorrect action and how easily that action can be reversed. Directional, not a complete decision algorithm.", "source": "product.md §6" },
+    { "id": "005", "semantic_id": "RULE-005", "title": "Preserve the distinction between observation, inference, recommendation, and human decision", "status": "DEFINED", "text": "The system must not collapse different epistemic stages into a stronger claim than the evidence supports.", "epistemic_chain": ["Observation", "Comparison", "Inference", "Recommendation", "Human determination", "Business action"], "source": "product.md §6" },
+    { "id": "006", "semantic_id": "RULE-006", "title": "Apply asymmetric thresholds to high-consequence uncertainty", "status": "DEFINED", "text": "When plausible outcomes have materially different severity, the evidentiary threshold for proceeding should reflect the more consequential failure mode.", "source": "product.md §6" },
+    { "id": "007", "semantic_id": "RULE-007", "title": "When AI introduces friction, help resolve the consequences", "status": "DEFINED", "text": "If the system blocks, delays, or escalates an action, it should proactively identify safe paths forward where possible rather than merely stopping the user.", "source": "product.md §6" },
+    { "id": "008", "semantic_id": "RULE-008", "title": "Do not substitute assumptions for missing product policy", "status": "DEFINED", "text": "When required product behavior, policy, permissions, evidence, or domain information is undefined, the system must identify the gap and request human resolution rather than silently inventing a rule. Applies both to AI inside Contera and to AI assisting the product team in maintaining Contera's specification.", "source": "product.md §6" },
+    { "id": "009", "semantic_id": "RULE-009", "title": "Revalidate mutable state before consequential execution", "status": "DEFINED", "approval_basis": "approved via Feature 001 cross-functional review", "text": "An agent must confirm that the facts and conditions supporting a prepared action remain valid immediately before execution when relevant state may have changed. Establishes the general principle only; per-action fields to revalidate are defined per action as they arise.", "source": "product.md §6" },
+    { "id": "010", "semantic_id": "RULE-010", "title": "Prioritize interventions according to urgency and consequence", "status": "DEFINED", "approval_basis": "proposed via Feature 001 experience evaluation", "text": "Intelligent interventions should be placed according to the urgency and consequence of the user decision, not merely according to the information architecture of the underlying data. Use the least interruptive treatment sufficient for the intervention window and potential consequence.", "source": "product.md §6" },
+    { "id": "011", "semantic_id": "RULE-011", "title": "Use progressive disclosure to minimize decision burden", "status": "DEFINED", "approval_basis": "proposed via Feature 001 experience evaluation", "text": "Show only the information necessary to understand the situation and make the immediate decision. Supporting evidence, reasoning, provenance, uncertainty details, and prepared-action metadata should remain inspectable when relevant but need not be simultaneously visible.", "source": "product.md §6" }
   ],
   "scenario_specific_boundaries": [
     {
       "id": "suspected-damage",
-      "status": "DEFINED_FOR_SCENARIO_002",
+      "status": "DEFINED",
+      "qualifier": "defined for Scenario 002 working behavior; not a general damage-liability policy",
       "permitted": ["observe possible damage", "compare checkout and return evidence", "recommend secondary inspection", "prepare supporting evidence and a draft damage report"],
       "prohibited": ["determine customer liability", "autonomously assess or collect the proposed ~$1,250-$1,700 damage charge in Scenario 002"],
       "governance": "Manager review required before consequential customer action.",
@@ -125,14 +128,17 @@
     },
     {
       "id": "safety-critical-concern",
-      "status": "WORKING_HYPOTHESIS_FROM_SCENARIO_003",
+      "status": "WORKING_HYPOTHESIS",
+      "qualifier": "working hypothesis from Scenario 003",
       "permitted": ["prevent ordinary checkout progression long enough to require appropriate human review, without claiming the equipment has conclusively been determined unsafe"],
       "unresolved": ["the exact actor authorized to clear, fail, or return equipment to service"],
       "source": "product.md §7.1"
     },
     {
       "id": "predicted-rental-conflict-outreach-feature-001",
-      "status": "DEFINED_FOR_FEATURE_001",
+      "status": "DEFINED",
+      "qualifier": "defined for Feature 001 working behavior; lifecycle and revalidation detail clarified via reconciliation review",
+      "feature_id": "FEATURE-001",
       "detail_ref": "context/features/feature-001-predicted-conflict.md",
       "source": "product.md §7.1"
     }
@@ -145,106 +151,106 @@
       {
         "category": "Product ontology / domain model",
         "questions": [
-          "What is the authoritative equipment-turnaround model?",
-          "Are inspection, cleaning, refueling, and maintenance separate required objects/states or attributes of turnaround?",
-          "How are safety status and operational availability represented?",
-          "What constitutes an equivalent replacement item? (Partially resolved for Feature 001 only.)",
-          "How is prior equipment damage recorded and reconciled?"
+          { "id": "POLICY-001", "text": "What is the authoritative equipment-turnaround model?" },
+          { "id": "POLICY-002", "text": "Are inspection, cleaning, refueling, and maintenance separate required objects/states or attributes of turnaround?" },
+          { "id": "POLICY-003", "text": "How are safety status and operational availability represented?" },
+          { "id": "POLICY-004", "text": "What constitutes an equivalent replacement item? (Partially resolved for Feature 001 only.)" },
+          { "id": "POLICY-005", "text": "How is prior equipment damage recorded and reconciled?" }
         ]
       },
       {
         "category": "Customer communication",
         "questions": [
-          "May the Operations Agent ever autonomously send operational communication? (Resolved as Execute+ApprovalRequired for Feature 001 specifically; general policy unresolved.)",
-          "Which communication types require approval?",
-          "What consent, opt-out, channel, and timing rules apply?",
-          "How should duplicate/recent human communication suppress agent action?",
-          "What revalidation is required immediately before sending a prepared message, beyond Rule 009's general principle?"
+          { "id": "POLICY-006", "text": "May the Operations Agent ever autonomously send operational communication? (Resolved as Execute+ApprovalRequired for Feature 001 specifically; general policy unresolved.)" },
+          { "id": "POLICY-007", "text": "Which communication types require approval?" },
+          { "id": "POLICY-008", "text": "What consent, opt-out, channel, and timing rules apply?" },
+          { "id": "POLICY-009", "text": "How should duplicate/recent human communication suppress agent action?" },
+          { "id": "POLICY-010", "text": "What revalidation is required immediately before sending a prepared message, beyond Rule 009's general principle?" }
         ]
       },
       {
         "category": "Permissions and RBAC",
         "questions": [
-          "What are the complete permissions for Counter Agent, Yard Associate, Branch Manager, Fleet Manager, and owner/higher authority?",
-          "What financial thresholds apply to each role?",
-          "Which actions require dual approval?",
-          "Can humans temporarily delegate scoped authority to the Operations Agent?",
-          "How are delegated permissions revoked or expired?"
+          { "id": "POLICY-011", "text": "What are the complete permissions for Counter Agent, Yard Associate, Branch Manager, Fleet Manager, and owner/higher authority?" },
+          { "id": "POLICY-012", "text": "What financial thresholds apply to each role?" },
+          { "id": "POLICY-013", "text": "Which actions require dual approval?" },
+          { "id": "POLICY-014", "text": "Can humans temporarily delegate scoped authority to the Operations Agent?" },
+          { "id": "POLICY-015", "text": "How are delegated permissions revoked or expired?" }
         ]
       },
       {
         "category": "Financial actions",
         "questions": [
-          "Who may assess damage charges?",
-          "Who may collect charges?",
-          "Who may waive or refund charges?",
-          "What thresholds trigger manager or owner approval?",
-          "How should active disputes affect financial execution?"
+          { "id": "POLICY-016", "text": "Who may assess damage charges?" },
+          { "id": "POLICY-017", "text": "Who may collect charges?" },
+          { "id": "POLICY-018", "text": "Who may waive or refund charges?" },
+          { "id": "POLICY-019", "text": "What thresholds trigger manager or owner approval?" },
+          { "id": "POLICY-020", "text": "How should active disputes affect financial execution?" }
         ]
       },
       {
         "category": "Damage and liability",
         "questions": [
-          "Which human role determines customer liability?",
-          "What minimum evidence is required?",
-          "Is a secondary inspection mandatory for AI-flagged damage?",
-          "What happens when evidence remains inconclusive?",
-          "What customer dispute process exists?"
+          { "id": "POLICY-021", "text": "Which human role determines customer liability?" },
+          { "id": "POLICY-022", "text": "What minimum evidence is required?" },
+          { "id": "POLICY-023", "text": "Is a secondary inspection mandatory for AI-flagged damage?" },
+          { "id": "POLICY-024", "text": "What happens when evidence remains inconclusive?" },
+          { "id": "POLICY-025", "text": "What customer dispute process exists?" }
         ]
       },
       {
         "category": "Safety and maintenance",
         "questions": [
-          "Who can place equipment on a safety hold?",
-          "Who can remove a safety hold?",
-          "When is a qualified mechanic required?",
-          "Which manufacturer recommendations are advisory versus mandatory policy?",
-          "Can AI temporarily block checkout based on a safety signal, and under exactly what conditions?"
+          { "id": "POLICY-026", "text": "Who can place equipment on a safety hold?" },
+          { "id": "POLICY-027", "text": "Who can remove a safety hold?" },
+          { "id": "POLICY-028", "text": "When is a qualified mechanic required?" },
+          { "id": "POLICY-029", "text": "Which manufacturer recommendations are advisory versus mandatory policy?" },
+          { "id": "POLICY-030", "text": "Can AI temporarily block checkout based on a safety signal, and under exactly what conditions?" }
         ]
       },
       {
         "category": "Risk model",
         "questions": [
-          "Should likelihood/probability become a formal dimension?",
-          "Should risk dimensions map algorithmically to governance, or remain inputs to human-defined policy?",
-          "Are Low/Moderate/High sufficient for all dimensions?",
-          "How should multiple simultaneous consequences be represented?",
-          "How should safety/legal risk override customer/revenue considerations?"
+          { "id": "POLICY-031", "text": "Should likelihood/probability become a formal dimension?" },
+          { "id": "POLICY-032", "text": "Should risk dimensions map algorithmically to governance, or remain inputs to human-defined policy?" },
+          { "id": "POLICY-033", "text": "Are Low/Moderate/High sufficient for all dimensions?" },
+          { "id": "POLICY-034", "text": "How should multiple simultaneous consequences be represented?" },
+          { "id": "POLICY-035", "text": "How should safety/legal risk override customer/revenue considerations?" }
         ]
       },
       {
         "category": "Confidence and evidence",
         "questions": [
-          "Should numerical confidence ever be shown to users?",
-          "What evidence-provenance metadata must be retained?",
-          "How should conflicting sources be represented?",
-          "How should model-generated interpretations be corrected and propagated?"
+          { "id": "POLICY-036", "text": "Should numerical confidence ever be shown to users?" },
+          { "id": "POLICY-037", "text": "What evidence-provenance metadata must be retained?" },
+          { "id": "POLICY-038", "text": "How should conflicting sources be represented?" },
+          { "id": "POLICY-039", "text": "How should model-generated interpretations be corrected and propagated?" }
         ]
       },
       {
         "category": "Agent execution",
         "questions": [
-          "What actions are eligible for autonomous execution?",
-          "What state must be revalidated immediately before execution, beyond Rule 009's general principle?",
-          "What happens when execution partially fails?",
-          "Which actions require rollback support?",
-          "How should agent action history and auditability work?"
+          { "id": "POLICY-040", "text": "What actions are eligible for autonomous execution?" },
+          { "id": "POLICY-041", "text": "What state must be revalidated immediately before execution, beyond Rule 009's general principle?" },
+          { "id": "POLICY-042", "text": "What happens when execution partially fails?" },
+          { "id": "POLICY-043", "text": "Which actions require rollback support?" },
+          { "id": "POLICY-044", "text": "How should agent action history and auditability work?" }
         ]
       },
       {
         "category": "Evaluation",
         "questions": [
-          "What constitutes a passing behavioral test?",
-          "Which scenarios should block release if they fail?",
-          "How should AI output quality be evaluated separately from deterministic product behavior?",
-          "Which scenarios require human usability testing versus automated behavioral evaluation?"
+          { "id": "POLICY-045", "text": "What constitutes a passing behavioral test?" },
+          { "id": "POLICY-046", "text": "Which scenarios should block release if they fail?" },
+          { "id": "POLICY-047", "text": "How should AI output quality be evaluated separately from deterministic product behavior?" },
+          { "id": "POLICY-048", "text": "Which scenarios require human usability testing versus automated behavioral evaluation?" }
         ]
       }
     ]
   },
   "known_permission_gaps": [
     { "id": "customer-communication", "status": "UNRESOLVED", "source": "product.md §7.2" },
-    { "id": "financial-actions", "status": "UNRESOLVED_EXCEPT_SCENARIO_002_BOUNDARY", "source": "product.md §7.3" },
+    { "id": "financial-actions", "status": "UNRESOLVED", "qualifier": "unresolved except for the Scenario 002 boundary (see scenario_specific_boundaries.suspected-damage)", "source": "product.md §7.3" },
     { "id": "safety-authority", "status": "UNRESOLVED", "source": "product.md §7.4" },
     { "id": "overrides-and-exceptions", "status": "UNRESOLVED", "source": "product.md §7.5" }
   ]

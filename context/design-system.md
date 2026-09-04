@@ -1,6 +1,6 @@
 # Contera Threshold Design System
 
-**Context System provenance:** Canonical context document, migrated from `source/design-system.md` without content changes. This is the presentation/visual-semantics layer — see `context/manifest.md` §2 (subordinate to `context/product.md` and `context/behaviors.md` for anything behavioral; must not introduce behavioral rules). Only what is DEFINED or WORKING HYPOTHESIS below is implemented guidance — where the source material did not support a complete token architecture, that gap is carried into `context/data/design-tokens.json` explicitly rather than filled in.
+**Context System provenance:** This document is the canonical, authoritative presentation/visual-semantics layer — see `context/manifest.md` §2 (subordinate to `context/product.md` and `context/behaviors.md` for anything behavioral; must not introduce behavioral rules). It was originally migrated from `source/design-system.md`; that origin is historical provenance only (`context/manifest.md` §1) — `source/design-system.md` is not resynchronized with this document and carries no current authority. Only what is DEFINED or WORKING HYPOTHESIS below is implemented guidance — where the source material did not support a complete token architecture, that gap is carried into `context/data/design-tokens.json` explicitly rather than filled in.
 
 **Version:** 0.1
 **Status:** Working design specification

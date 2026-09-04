@@ -1,6 +1,6 @@
 # Contera Product System
 
-**Context System provenance:** Canonical context document, migrated from `source/product.md` without content changes. This is the Product Context — see `context/manifest.md` §2 for what it owns and its position in the authority hierarchy (highest: product meaning and behavior originate here). Section numbers, rule numbers (001–011), and status labels below are unchanged from source and are the stable identifiers cited by `context/behaviors.md`, `context/components.md`, `context/design-system.md`, `context/features/*`, `context/data/*.json`, and `context/evaluation/evaluation-system.md`.
+**Context System provenance:** This document is the canonical, authoritative Product Context — see `context/manifest.md` §2 for what it owns and its position in the authority hierarchy (highest: product meaning and behavior originate here). It was originally migrated from `source/product.md`; that origin is historical provenance only (`context/manifest.md` §1) — `source/product.md` is not resynchronized with this document and carries no current authority. Section numbers, rule numbers (001–011), and status labels below are the stable identifiers cited by `context/behaviors.md`, `context/components.md`, `context/design-system.md`, `context/features/*`, `context/data/*.json`, and `context/evaluation/evaluation-system.md`; rule/primitive/feature numbers additionally have durable semantic IDs (`RULE-###`, etc.) documented in `context/id-scheme.md`.
 
 **Version:** 0.2
 **Status:** Working behavioral specification
