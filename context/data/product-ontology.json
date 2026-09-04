@@ -1,0 +1,182 @@
+{
+  "$description": "Structured representation of the Contera Product Ontology. Derived from context/product.md Section 2. Non-authoritative — see context/manifest.md §7. Markdown wins on any discrepancy. Status values use the epistemic vocabulary defined in context/product.md (DEFINED / WORKING_HYPOTHESIS / UNRESOLVED).",
+  "source_document": "context/product.md",
+  "source_section": "2. Product ontology v0.1",
+  "actors": [
+    {
+      "id": "counter-agent",
+      "name": "Counter Agent",
+      "status": "DEFINED",
+      "capabilities": [
+        "find or create customers",
+        "create and modify reservations",
+        "check equipment out",
+        "initiate returns",
+        "collect payments",
+        "review inspection results",
+        "communicate with customers"
+      ],
+      "unresolved": ["specific monetary, override, and communication permissions"],
+      "source": "product.md §2.1"
+    },
+    {
+      "id": "yard-associate",
+      "name": "Yard Associate",
+      "status": "DEFINED",
+      "capabilities": [
+        "identify equipment",
+        "record meter and fuel levels",
+        "photograph equipment",
+        "document damage",
+        "perform return inspections",
+        "flag maintenance concerns",
+        "mark equipment physically available"
+      ],
+      "unresolved": ["exact authority to pass/fail equipment or remove equipment from service"],
+      "source": "product.md §2.1"
+    },
+    {
+      "id": "branch-manager",
+      "name": "Branch Manager",
+      "status": "DEFINED",
+      "capabilities": [
+        "perform most Counter Agent actions",
+        "approve some exceptions",
+        "override some policies",
+        "resolve inventory conflicts",
+        "approve some consequential customer charges",
+        "manage operational priorities"
+      ],
+      "unresolved": ["exact thresholds and override permissions"],
+      "source": "product.md §2.1"
+    },
+    {
+      "id": "fleet-manager",
+      "name": "Fleet Manager",
+      "status": "DEFINED",
+      "capabilities": [
+        "review fleet condition",
+        "schedule maintenance",
+        "change equipment availability",
+        "relocate equipment",
+        "review utilization"
+      ],
+      "unresolved": ["exact safety, maintenance, and branch-level override authority"],
+      "source": "product.md §2.1"
+    },
+    {
+      "id": "operations-agent",
+      "name": "Operations Agent",
+      "status": "DEFINED",
+      "type": "non-human product actor",
+      "note": "Not defined as a chatbot or a particular interface. Capability does not imply authority to exercise it autonomously.",
+      "capabilities": [
+        "observe product state",
+        "identify anomalies",
+        "combine information across objects",
+        "interpret unstructured information",
+        "recommend actions",
+        "prepare actions",
+        "execute specifically authorized actions",
+        "identify situations requiring human review or escalation"
+      ],
+      "unresolved": null,
+      "source": "product.md §2.1"
+    }
+  ],
+  "core_objects": [
+    { "id": "customer", "name": "Customer", "status": "DEFINED", "definition": "A person or organization renting equipment.", "source": "product.md §2.2" },
+    { "id": "equipment", "name": "Equipment", "status": "DEFINED", "definition": "A physical rental asset.", "source": "product.md §2.2" },
+    { "id": "reservation", "name": "Reservation", "status": "DEFINED", "definition": "Future intent to rent equipment or an equipment type.", "source": "product.md §2.2" },
+    { "id": "rental", "name": "Rental", "status": "DEFINED", "definition": "An active or historical contractual use of equipment by a customer.", "source": "product.md §2.2" },
+    { "id": "location", "name": "Location", "status": "DEFINED", "definition": "A branch or other operational location where equipment resides or rental activity occurs.", "source": "product.md §2.2" },
+    { "id": "inspection", "name": "Inspection", "status": "DEFINED", "definition": "A structured assessment of equipment condition.", "source": "product.md §2.2" },
+    { "id": "evidence", "name": "Evidence", "status": "DEFINED", "definition": "Information supporting an observation, inference, recommendation, or decision. Examples: photos, video, voice observations, notes, meter readings, signatures, inspection records, maintenance records.", "source": "product.md §2.2" },
+    { "id": "damage", "name": "Damage", "status": "DEFINED", "definition": "A recorded or suspected physical condition affecting equipment.", "source": "product.md §2.2" },
+    { "id": "maintenance-event", "name": "Maintenance Event", "status": "DEFINED", "definition": "Maintenance work required, scheduled, recommended, or performed on equipment.", "source": "product.md §2.2" },
+    { "id": "payment-charge", "name": "Payment / Charge", "status": "DEFINED", "definition": "A financial transaction or proposed financial transaction associated with a rental or customer.", "source": "product.md §2.2" },
+    { "id": "communication", "name": "Communication", "status": "DEFINED", "definition": "A customer or operational communication such as call, SMS, email, or system-generated message.", "source": "product.md §2.2" },
+    { "id": "agent-action", "name": "Agent Action", "status": "DEFINED", "definition": "An observation, recommendation, preparation, or execution performed by the Operations Agent.", "source": "product.md §2.2" },
+    { "id": "approval", "name": "Approval", "status": "DEFINED", "definition": "Human authorization associated with an action that requires review before execution.", "note": "Dual status: also an interaction primitive in context/behaviors.md, representing the same underlying concept from the authorization-experience angle. See product.md §2.6.", "source": "product.md §2.2, §2.6" },
+    {
+      "id": "equipment-turnaround-requirement",
+      "name": "Equipment Turnaround Requirement",
+      "status": "WORKING_HYPOTHESIS",
+      "definition": "Information representing the time or work necessary to make returned equipment ready for its next rental, potentially including inspection, cleaning, refueling, or maintenance.",
+      "data_model": "UNRESOLVED",
+      "source": "product.md §2.2"
+    },
+    {
+      "id": "estimated-ready-time",
+      "name": "Estimated Ready Time",
+      "status": "DEFINED",
+      "approval_basis": "approved via Feature 001 cross-functional review",
+      "formula": "Expected Return Time + Required Turnaround Time",
+      "usage": "Conflict detection for a downstream reservation must evaluate this value against the downstream reservation's pickup time, rather than raw Expected Return Time alone.",
+      "unresolved": "How Required Turnaround Time itself is determined (fixed value / varies by equipment type or condition / computed estimate) remains UNRESOLVED.",
+      "source": "product.md §2.2"
+    }
+  ],
+  "relationships": [
+    { "subject": "customer", "status": "DEFINED", "statements": ["has many Reservations", "has many Rentals", "receives Communications"], "source": "product.md §2.3" },
+    { "subject": "reservation", "status": "DEFINED", "statements": ["belongs to a Customer", "requests an Equipment item or equipment type", "may be fulfilled by Equipment", "occurs at a Location", "may become a Rental"], "source": "product.md §2.3" },
+    { "subject": "rental", "status": "DEFINED", "statements": ["belongs to a Customer", "uses Equipment", "may originate from a Reservation", "may have a checkout Inspection", "may have a return Inspection", "may create a Charge", "may create or reference Damage"], "source": "product.md §2.3" },
+    { "subject": "inspection", "status": "DEFINED", "statements": ["evaluates Equipment", "contains or references Evidence", "may identify Damage", "is performed or confirmed by a human actor", "may be assisted by the Operations Agent"], "source": "product.md §2.3" },
+    { "subject": "agent-action", "status": "DEFINED", "statements": ["is triggered by product state, event, user intent, or detected condition", "references Evidence where relevant", "affects one or more product objects", "has an Agent Capability classification", "has a Governance outcome", "may require Approval", "produces an outcome or failure state"], "source": "product.md §2.3" },
+    { "subject": "approval", "status": "DEFINED", "statements": ["is requested for an action", "is granted or rejected by an authorized human actor", "should remain attributable to the approving actor"], "source": "product.md §2.3" },
+    {
+      "subject": "derived-conflict-relationship",
+      "status": "DEFINED_AS_SCOPING_DECISION",
+      "approval_basis": "approved via Feature 001 cross-functional review",
+      "description": "A potential conflict between an active Rental and a downstream Reservation for the same Equipment or equipment type is represented as a derived/computed relationship, evaluated at prediction time — not persisted as a new core ontology relationship.",
+      "explicitly_declined": [
+        "a permanent Rental -> downstream Reservation relationship",
+        "a complete Reservation state model, solely for Feature 001"
+      ],
+      "note": "Whether either becomes necessary will be revisited if future implementation analysis demonstrates the need.",
+      "source": "product.md §2.3"
+    }
+  ],
+  "working_state_models": {
+    "rental_states": {
+      "status": "WORKING_HYPOTHESIS",
+      "primary_lifecycle": ["Reserved", "Ready for pickup", "Checked out", "Due soon", "Due", "Overdue", "Return initiated", "Inspection in progress", "Inspection complete", "Charges pending", "Closed"],
+      "branching_or_exception_states": ["Damage review required", "Maintenance required", "Dispute"],
+      "note": "This is not yet an exhaustive or implementation-ready state machine.",
+      "source": "product.md §2.4"
+    },
+    "equipment_states": {
+      "status": "WORKING_HYPOTHESIS",
+      "states": ["Available", "Reserved", "Checked out", "Return inspection", "Unavailable", "Maintenance", "Transfer pending"],
+      "unresolved": "The relationship between operational availability, safety status, reservation assignment, and maintenance status.",
+      "source": "product.md §2.4"
+    }
+  },
+  "events": {
+    "status": "WORKING_HYPOTHESIS",
+    "candidate_events": [
+      "rental_due_soon",
+      "rental_overdue",
+      "equipment_returned",
+      "inspection_started",
+      "damage_detected",
+      "damage_uncertain",
+      "inspection_completed",
+      "maintenance_required",
+      "payment_failed",
+      "reservation_conflict_detected",
+      "customer_contacted",
+      "approval_requested",
+      "approval_granted",
+      "approval_rejected",
+      "agent_action_failed"
+    ],
+    "unresolved": ["event payloads", "triggering conditions", "persistence rules"],
+    "source": "product.md §2.5"
+  },
+  "ontology_layering_note": {
+    "status": "DEFINED",
+    "description": "The Product Ontology, Agent Capability model (context/product.md §3), and Interaction Primitives (context/behaviors.md) are three distinct layers. Finding and Prepared Action are interaction primitives, not Core Objects of this ontology, even though they carry their own identifiers (findingId, preparedActionId) in context/components.md. Approval is the one exception: it is both a Core Object (see approval entry above) and an interaction primitive, viewed from two angles.",
+    "source": "product.md §2.6"
+  }
+}

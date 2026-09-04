@@ -1,0 +1,141 @@
+{
+  "$description": "Structured representation of the nine interaction primitives defined in context/behaviors.md. Non-authoritative — see context/manifest.md §7. Prose rationale lives in the Markdown; this file carries identifiers, enumerations, and relationships only.",
+  "source_document": "context/behaviors.md",
+  "capability_to_primitive_mapping": {
+    "status": "DEFINED",
+    "source": "behaviors.md, 'Relationship to the Product Ontology'; product.md §2.6",
+    "mapping": [
+      { "capability": "Observe", "expressed_through": "Finding" },
+      { "capability": "Recommend", "expressed_through": "Recommendation" },
+      { "capability": "Prepare", "expressed_through": "Prepared Action" },
+      { "capability": "Execute", "expressed_through": "Progress (execution/progress behavior)" }
+    ]
+  },
+  "primitives": [
+    {
+      "id": 1,
+      "name": "Finding",
+      "purpose": "Present what the Operations Agent has observed, compared, or inferred, without asserting more certainty than the evidence supports.",
+      "agent_states_supported": ["Observe"],
+      "human_actions_permitted": ["inspect evidence (-> Evidence Inspection)", "dismiss (-> Correction)"],
+      "governance_implications": "none on its own; Observe-tier and Permitted by definition",
+      "relationships": { "feeds": ["Recommendation"], "attached_to_by": ["Evidence Inspection"], "may_be_subject_of": ["Correction"], "tracked_by": ["Progress"] },
+      "ontology_note": "Not a Core Object of the Product Ontology; findingId is an interaction-layer identifier only (product.md §2.6).",
+      "gaps": ["Rule 003's 'when practical' threshold for exposing evidence is undefined", "whether numerical confidence may ever be shown at all is unresolved (product.md §9)"]
+    },
+    {
+      "id": 2,
+      "name": "Evidence Inspection",
+      "purpose": "Let a human examine the underlying evidence, its quality, and its limitations behind a Finding, Recommendation, Prepared Action, Approval, or Escalation.",
+      "agent_states_supported": ["Observe"],
+      "human_actions_permitted": ["inspect", "request more evidence (-> Correction, or back to agent for further observation)"],
+      "governance_implications": "none directly; evidence surfaced here justifies Escalation or a Progress hold under Rule 006",
+      "relationships": { "attaches_to": ["Finding", "Recommendation", "Prepared Action", "Approval", "Escalation"], "may_trigger": ["Correction"] },
+      "gaps": ["evidence-provenance metadata requirements are unresolved (product.md §9)", "how conflicting sources should be represented is unresolved"]
+    },
+    {
+      "id": 3,
+      "name": "Recommendation",
+      "purpose": "Suggest a next action without committing to it.",
+      "agent_states_supported": ["Recommend"],
+      "human_actions_permitted": ["accept", "decline", "request a different recommendation"],
+      "governance_implications": "none on its own; governance attaches once something is Prepared from it",
+      "relationships": { "consumes": ["Finding"], "may_lead_to": ["Prepared Action"] },
+      "gaps": ["whether a Recommendation stage is always required before Prepare, or can be compressed for high-urgency safety cases (Scenario 003 appears to skip to Escalation), is unresolved"]
+    },
+    {
+      "id": 4,
+      "name": "Prepared Action",
+      "purpose": "Present an agent-created artifact or action that is ready for human inspection, editing, routing, authorization, handoff, or execution.",
+      "agent_states_supported": ["Prepare"],
+      "human_actions_permitted": ["inspect", "edit", "discard", "hand off to manual execution", "forward to Approval, Escalation, or direct execution if Permitted"],
+      "governance_implications": "carries no governance decision of its own; can exist under any governance outcome including Prohibited (should not progress) and Escalation Required (carried forward by Escalation rather than Approval)",
+      "relationships": { "consumes": ["Finding", "Recommendation"], "gated_by": ["Approval (when governance = ApprovalRequired)"], "carried_forward_by": ["Escalation (when governance = EscalationRequired)"], "updates": ["Progress"], "may_be_source_for": ["Resolution Alternatives"] },
+      "ontology_note": "Not a Core Object of the Product Ontology; preparedActionId is an interaction-layer identifier only (product.md §2.6).",
+      "gaps": ["which fields must be revalidated per action type under Rule 009 is unresolved generically (product.md §9); identified per-feature only", "whether/when a Prepared Action expires if left undecided is unresolved"]
+    },
+    {
+      "id": 5,
+      "name": "Approval",
+      "purpose": "Provide the governance interaction through which an authorized human permits or rejects execution of a Prepared Action.",
+      "agent_states_supported": [],
+      "agent_states_note": "none directly — a human-authorization event over a Prepared Action, not an agent capability state",
+      "human_actions_permitted": ["approve as-is", "edit the linked Prepared Action then approve", "reject", "request more evidence"],
+      "governance_implications": "exists precisely when Governance = ApprovalRequired; any authorized actor for that action type may act, not necessarily a specific higher-authority role",
+      "relationships": { "consumes": ["Prepared Action", "Finding (via Prepared Action)", "Evidence Inspection (via Prepared Action)"], "updates": ["Progress"], "may_route_back_to": ["Correction"] },
+      "ontology_note": "Dual status: also a Core Object of the Product Ontology (product.md §2.2-2.3) — the record and the experience of creating that record, viewed from two angles.",
+      "gaps": ["who counts as an 'authorized human actor' generally is unresolved (full RBAC gap, product.md §9)"]
+    },
+    {
+      "id": 6,
+      "name": "Escalation",
+      "purpose": "Route a Finding or Prepared Action to a specific role or higher-authority actor, rather than letting the current actor resolve it.",
+      "agent_states_supported": ["Prepare", "Execute-blocking (sometimes)"],
+      "human_actions_permitted": ["adjudicate (-> Correction)", "approve/reject a linked Prepared Action", "request more evidence"],
+      "governance_implications": "exists precisely when Governance = EscalationRequired; target role is UNRESOLVED for damage liability and safety authority (product.md §7.4, §9)",
+      "relationships": { "may_follow_from": ["Finding", "Prepared Action"], "resolves_into": ["Correction"], "is_a": ["Progress state"], "may_co_occur_with": ["Resolution Alternatives"] },
+      "gaps": ["specific roles authorized to receive a damage-liability escalation or a safety escalation are both unresolved (product.md §7.4, §9)"]
+    },
+    {
+      "id": 7,
+      "name": "Correction",
+      "purpose": "Let an authorized human resolve ambiguity in a Finding — determine what's actually true — rather than merely approving or rejecting a proposed action.",
+      "agent_states_supported": ["Observe", "Recommend", "Prepare"],
+      "human_actions_permitted": ["confirm", "mark as pre-existing", "request more evidence", "dismiss", "escalate"],
+      "governance_implications": "Correction outcomes can themselves trigger Escalation ('escalate dispute'); the resulting record change may need its own governance treatment not yet resolved (product.md §7.3)",
+      "relationships": { "consumes": ["Finding", "Evidence Inspection"], "may_produce": ["Escalation"], "updates": ["Progress"] },
+      "gaps": ["what happens when evidence remains inconclusive after correction is attempted is unresolved (product.md §9)", "what customer dispute process exists is unresolved"]
+    },
+    {
+      "id": 8,
+      "name": "Progress",
+      "purpose": "Show where a given Agent Action currently sits in its capability/governance lifecycle, and — where required — actively hold up an ordinary workflow until that lifecycle resolves.",
+      "agent_states_supported": ["Observe", "Recommend", "Prepare", "Execute", "terminal outcome/failure state"],
+      "human_actions_permitted": ["view current status"],
+      "human_actions_note": "for a blocking state, the spec defines no override — the human role authorized to lift a hold is UNRESOLVED (product.md §7.4, Scenario 003)",
+      "governance_implications": "a blocking Progress state operationalizes Escalation Required or Approval Required as a real constraint on the product, not just a review queue",
+      "relationships": { "updated_by": ["Finding", "Recommendation", "Prepared Action", "Approval", "Escalation", "Correction"], "typically_accompanied_by": ["Resolution Alternatives (when blocked)"] },
+      "gaps": ["relationship between operational availability, safety status, reservation assignment, and maintenance status is unresolved (product.md §2.4), so it is unclear which underlying object states a 'blocked' status should change", "no scenario walks through an execution failure; failure-state behavior is a placeholder, not a specified design"]
+    },
+    {
+      "id": 9,
+      "name": "Resolution Alternatives",
+      "purpose": "When the agent's own behavior introduces friction — a block, delay, or escalation — proactively offer safe ways forward rather than leaving the human with only a stop.",
+      "agent_states_supported": ["Prepare"],
+      "human_actions_permitted": ["select an alternative", "request more options", "dismiss"],
+      "governance_implications": "none defined independently; selecting an alternative may trigger a new Agent Action with its own governance",
+      "relationships": { "attaches_to": ["blocked Progress state", "Escalation"], "consumes": ["Evidence Inspection output"] },
+      "gaps": ["'equivalent equipment' has a scoped definition for Feature 001 only (product.md §7.1); Scenario 003's broader alternative-equipment matching has no defined equivalence rule of its own"]
+    }
+  ],
+  "cross_cutting_requirements": [
+    {
+      "name": "Impact/Urgency disclosure",
+      "not_a_primitive_because": "no distinct interaction shape of its own",
+      "requirement": "Rule 002 requires potential consequence and intervention urgency be represented as two independent values, never collapsed into one severity score.",
+      "applies_to_primitives": ["Finding", "Recommendation", "Escalation", "Progress"],
+      "source": "behaviors.md; product.md Rule 002"
+    },
+    {
+      "name": "Don't invent missing policy",
+      "not_a_primitive_because": "cross-cutting constraint, not an interaction shape",
+      "requirement": "Every primitive must surface an unresolved policy as visibly unresolved rather than have the interface silently default it.",
+      "source": "behaviors.md; product.md Rule 008"
+    }
+  ],
+  "coverage_matrix": {
+    "source": "behaviors.md",
+    "scenarios": ["Scenario 001 (predicted collision)", "Scenario 002 (suspected damage)", "Scenario 003 (safety-critical)"],
+    "rows": [
+      { "primitive": "Finding", "scenario_001": "Required", "scenario_002": "Required", "scenario_003": "Required" },
+      { "primitive": "Evidence Inspection", "scenario_001": "Required", "scenario_002": "Required", "scenario_003": "Required" },
+      { "primitive": "Recommendation", "scenario_001": "Required", "scenario_002": "Required", "scenario_003": "Ambiguous — collapsed into Finding + Escalation" },
+      { "primitive": "Prepared Action", "scenario_001": "Required (Feature 001's approved drafted communication)", "scenario_002": "Required (draft damage report, carried forward by Escalation)", "scenario_003": "Ambiguous — whether a discrete instance also exists for a formal safety hold is unresolved" },
+      { "primitive": "Approval", "scenario_001": "Required (per Feature 001's approved governance)", "scenario_002": "Not required — governance is Escalation", "scenario_003": "Not required as specified — outcome likely Escalation, exact mechanism unresolved" },
+      { "primitive": "Escalation", "scenario_001": "Not required — Feature 001 uses Approval", "scenario_002": "Required ('Prepare and Escalate together', manager review)", "scenario_003": "Required (safety review; target role unresolved)" },
+      { "primitive": "Correction", "scenario_001": "Not required — human only approves/rejects a drafted message", "scenario_002": "Required (confirm / mark pre-existing / request evidence / dismiss / escalate dispute)", "scenario_003": "Partial/underspecified — no defined menu of outcomes" },
+      { "primitive": "Progress", "scenario_001": "Required (tracks lifecycle + Rule 009 revalidation)", "scenario_002": "Required (tracks combined Prepare+Escalate state)", "scenario_003": "Required (tracks Observe->Blocked->Escalated, including the active hold)" },
+      { "primitive": "Resolution Alternatives", "scenario_001": "Not required — Feature 001 as approved stops at contacting the renter (gap against Rule 007)", "scenario_002": "Not required — scenario is about liability determination, not equipment availability", "scenario_003": "Required (nearby equivalent equipment, transfer time, substitute classes, schedule flexibility, upgrade or delivery alternatives)" }
+    ]
+  }
+}

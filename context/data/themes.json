@@ -1,0 +1,16 @@
+{
+  "$description": "Theme registry for the Contera presentation layer. Non-authoritative — see context/manifest.md §7. Per the migration instructions: if multiple themes are not defined in the source material, none are invented here.",
+  "source_document": "context/design-system.md",
+  "themes": [
+    {
+      "id": "threshold",
+      "name": "Contera Threshold Design System",
+      "version": "0.1",
+      "status": "WORKING_DESIGN_SPECIFICATION",
+      "description": "The single currently supported presentation system. Governs color, type, the governance-tier visual language, and icons. See context/data/design-tokens.json for its token values.",
+      "source": "design-system.md, header"
+    }
+  ],
+  "additional_themes_defined": false,
+  "note": "No second theme (e.g., a distinct dark-mode theme, a white-label variant, or a high-contrast mode) is defined anywhere in the source material. The Approval governance tier's surface inversion to gray-950 (design-system.md §3) is a component-level state within the single Threshold theme — a governance-tier signal, not a separate theme or a user-selectable light/dark mode. Do not construct a second theme entry from that inversion. If additional themes become necessary, they must be defined in source/design-system.md (or its successor) first, per context/manifest.md's provenance rule, before being represented here."
+}

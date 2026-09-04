@@ -1,0 +1,85 @@
+{
+  "$description": "Structured representation of Contera's Threshold design tokens. Derived from context/design-system.md. Non-authoritative — see context/manifest.md §7. Only extracts what the source material actually defines; gaps are represented explicitly (null / empty) with a note, per context/design-system.md 'What this document does not define'. Do not treat a null/empty field as an oversight or fill it with an invented value.",
+  "source_document": "context/design-system.md",
+  "color": {
+    "status": "DEFINED",
+    "source": "design-system.md §1",
+    "neutral_ramp": {
+      "gray-950": "#101014",
+      "gray-900": "#17181C",
+      "gray-800": "#232429",
+      "gray-700": "#3A3B42",
+      "gray-600": "#53555E",
+      "gray-500": "#6B6D76",
+      "gray-400": "#8C8E97",
+      "gray-300": "#A8AAB3",
+      "gray-200": "#D2D3D9",
+      "gray-100": "#E9EAEE",
+      "gray-50": "#F5F5F7",
+      "white": "#FFFFFF"
+    },
+    "surfaces": {
+      "canvas": { "hex": "#FBFBFC", "usage": "page background" },
+      "surface": { "hex": "#FFFFFF", "usage": "cards" },
+      "surface-sunken": { "hex": "#F5F5F7", "usage": "recessed areas — muted panels, footers" }
+    },
+    "accent": {
+      "accent-50": { "hex": "#F1F0FE", "usage": "Reserved, not yet assigned a use" },
+      "accent-200": { "hex": "#C7C4F5", "usage": "The Prepared-tier thread, and the tier-signal icon and label that accompany it." },
+      "accent-500": { "hex": "#5E54F2", "usage": "Exactly two things, anywhere in the product: the Approve/Send action's fill, and the Approval tier's label color. Nothing else may use it at full strength." },
+      "accent-on-dark": { "hex": "#8B85F7", "usage": "Supplementary text/icon accents on a dark (Approval-tier) surface." }
+    },
+    "resolved_state_glyphs": {
+      "note": "Render as icon/text color only. A colored background chip is not a valid use of either token, in any tier.",
+      "ok": "#4B8768",
+      "err": "#B15454"
+    }
+  },
+  "type": {
+    "status": "DEFINED",
+    "source": "design-system.md §2",
+    "voices": [
+      { "name": "Display", "typeface": "Inter Tight", "weight": 600, "usage": "The one hero title per screen — the thing the record is (equipment name, etc.). Not card titles.", "scale": "text-2xl font-semibold tracking-tight" },
+      { "name": "Section label", "typeface": "Inter Tight", "weight": 500, "usage": "Card/section titles." },
+      { "name": "Body", "typeface": "Inter", "weight": 400, "usage": "Prose: descriptions, instructions, rationale." },
+      { "name": "Eyebrow / field label", "typeface": "Inter", "case": "uppercase", "tracking": "wide", "size": "small", "usage": "Structural labels — never the value itself." },
+      { "name": "Systematic", "typeface": "IBM Plex Mono", "numerals": "tabular", "usage": "Every value that is data rather than prose: dates/times, currency, rental/reservation/unit IDs, meter readings, phone numbers, counts, percentages, evidence/source citations." }
+    ],
+    "systematic_test": "If a value could be looked up, counted, compared, or copied, set it in mono with tabular numerals. If it's a sentence a human wrote or reads as prose, it's Body. If it names what you're looking at, it's Display or a Section label.",
+    "scale_status": "DEFINED — implemented and exercised across every screen type in the prototype (Reservation Detail baseline, Feature 001 Generations 1-3, Design Exploration A/B/C, Compare)."
+  },
+  "governance_tier_visual_language": {
+    "status": "DEFINED",
+    "source": "design-system.md §3",
+    "tiers": [
+      { "tier": "Finding / Recommendation", "surface": "white", "border": "1px gray-100", "shadow": "none", "color": "none" },
+      { "tier": "Prepared Action", "surface": "white (neutral; never a fill)", "thread": { "position": "left edge", "width": "3px", "color": "accent-200" }, "icon_color": "accent-200", "label_color": "accent-200" },
+      { "tier": "Approval", "surface": "inverts to gray-950", "shadow": "deep", "label_color": "accent-500", "action_fill": "accent-500 (Approve/Send button)", "supplementary_accent": "accent-on-dark" },
+      { "tier": "Execution/Progress resolved", "surface": "gray-50", "opacity": "reduced", "glyph": "ok/err only, never a fill" }
+    ]
+  },
+  "icons": {
+    "status": "DEFINED",
+    "source": "design-system.md §4",
+    "roles": [
+      { "role": "Structural", "size": "size-4", "color": "gray-500", "note": "never colored; orient, don't signal" },
+      { "role": "Tier-signal", "size": "size-5", "colors_by_tier": { "Finding": "neutral", "Resolved": "neutral (ok/err glyph)", "Prepared": "accent-200", "Approval": "accent-on-dark" } }
+    ],
+    "note": "An icon never carries meaning alone; always sits beside a text label."
+  },
+  "hero_stat_pattern": {
+    "status": "WORKING_HYPOTHESIS",
+    "source": "design-system.md §5",
+    "note": "Tried in exactly one place — the Reservation Detail header's 'Scheduled return.' Not yet promoted to DEFINED.",
+    "selection_test": "The figure a counter employee scans for first when opening this specific record — not 'the most important field,' but the one the visit is usually for."
+  },
+  "undefined_token_categories": {
+    "note": "These are gaps in the source material, not omissions from this file. Do not fill with an invented value. See context/design-system.md 'What this document does not define'.",
+    "spacing_scale": null,
+    "border_radius": null,
+    "elevation_shadow_scale": null,
+    "motion_transition": null,
+    "breakpoints": null,
+    "additional_semantic_color_roles": null
+  }
+}

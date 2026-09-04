@@ -1,0 +1,156 @@
+{
+  "$description": "Structured representation of Evaluation Scenarios 001-003. Derived from context/product.md Section 8. Non-authoritative — see context/manifest.md §7. These are behavioral tests used to reveal weaknesses in the product model and Experience Constitution, not merely feature examples.",
+  "source_document": "context/product.md",
+  "source_section": "8. Evaluation scenarios 001-003",
+  "scenarios": [
+    {
+      "id": "scenario-001",
+      "title": "Predicted inventory collision",
+      "status": "DEFINED_EVALUATION_SCENARIO",
+      "feature_ref": "context/features/feature-001-predicted-conflict.md",
+      "situation": {
+        "time": "8:00 AM",
+        "current_renter": "Bob's Construction",
+        "equipment": "Bobcat T66 #4421",
+        "scheduled_return": "9:00 AM",
+        "downstream_reservation": { "equipment_type": "Bobcat T66", "pickup": "11:00 AM" },
+        "equivalent_equipment_available": false,
+        "historical_lateness": "average 1 hour 47 minutes late (Bob's Construction)",
+        "communication_occurred": false
+      },
+      "known_facts": ["current renter", "equipment identity", "scheduled return", "next reservation time", "lack of equivalent available equipment"],
+      "predictive_evidence": ["historical lateness behavior"],
+      "potential_inference": "the current rental may return late enough to threaten the downstream reservation",
+      "missing_information_discovered": "Return time alone is insufficient; Contera may need an Equipment Turnaround Requirement or equivalent operational data (inspection, cleaning, refueling, or other work). Illustrative example only: expected return 10:47 AM + 30 min turnaround = 11:17 AM estimated readiness; the 30-minute value is illustrative, not established policy/data.",
+      "working_decision": {
+        "surface_situation": true,
+        "potential_impact": "High customer impact if unresolved",
+        "intervention_priority": "Action needed, not necessarily urgent at 8:00 AM because the conflict is predicted rather than actual",
+        "recommended_action": "Contact the current renter to confirm expected return time",
+        "agent_capability": "Prepare",
+        "initial_governance": "human review before sending communication, pending unresolved communication policy"
+      },
+      "evidence_a_human_should_inspect": [
+        "current renter identity and preferred contact information",
+        "downstream customer/reservation identity where appropriate",
+        "equipment identity",
+        "scheduled return time",
+        "anticipated return time and the basis for that prediction",
+        "next reservation time",
+        "equivalent replacement inventory",
+        "equipment turnaround requirement, if available"
+      ],
+      "lessons": [
+        "Potential impact and intervention urgency must be separate.",
+        "Predictions must not be presented as known facts.",
+        "Resolve material uncertainty before unnecessarily involving downstream affected parties.",
+        "The ontology was missing turnaround requirements.",
+        "Opaque confidence percentages may be less useful than exposing the evidence and assumptions driving the prediction."
+      ],
+      "applicable_experience_rules": ["001", "002", "003", "005", "008", "009", "010", "011"]
+    },
+    {
+      "id": "scenario-002",
+      "title": "Suspected new equipment damage",
+      "status": "DEFINED_EVALUATION_SCENARIO",
+      "feature_ref": "context/features/feature-002-damage-review.md",
+      "situation": {
+        "time": "4:15 PM",
+        "customer": "Bob's Construction",
+        "equipment": "Bobcat T66 #4421",
+        "checkout_photos": "eight photographs; no obvious damage detected in the affected area",
+        "return_photos": "visible dent/scrape on right rear panel",
+        "rental_agreement": "customer is responsible for damage occurring during the rental",
+        "estimated_repair_cost": "$1,250-$1,700",
+        "security_deposit": "$2,000",
+        "complication": "checkout photograph of the relevant panel taken in poor lighting and partly obscured by mud"
+      },
+      "working_risk_assessment": {
+        "consequence": "High (financial impact and dispute potential)",
+        "intervention_priority": "Action needed; not necessarily immediate/urgent",
+        "evidentiary_uncertainty": "Material/Moderate (checkout evidence incomplete)"
+      },
+      "working_behavior": {
+        "permitted": [
+          "Observe: identify visible damage in return evidence",
+          "Compare: identify that the damage is not clearly visible in checkout evidence",
+          "Infer: state that damage may have occurred during the rental",
+          "Recommend: request a secondary human inspection",
+          "Prepare: assemble evidence, relevant rental information, repair estimate, and a draft damage report"
+        ],
+        "prohibited": [
+          "conclude that the customer caused the damage",
+          "determine customer liability",
+          "autonomously assess or collect the proposed charge"
+        ],
+        "governance": "Manager review required before consequential customer action"
+      },
+      "evidence_presentation_requirement": [
+        "checkout evidence", "return evidence", "timestamps",
+        "highlighted or otherwise inspectable visual difference where useful",
+        "inspection records", "known prior damage history if available",
+        "relevant rental agreement", "repair estimate", "evidence-quality limitations"
+      ],
+      "human_controls_identified": ["confirm damage", "mark as pre-existing", "request more evidence", "dismiss AI finding", "escalate dispute"],
+      "human_controls_note": "Exact UI controls are not yet designed.",
+      "lessons": [
+        "Rule 001 evolved from 'resolve uncertainty at its source' to 'resolve material uncertainty before consequential action.'",
+        "Capability and governance cannot be represented as one linear ladder.",
+        "Prepare and Escalate may occur together.",
+        "Reversibility/irreversibility matters to agent autonomy.",
+        "Observation, inference, recommendation, human determination, and business action must remain distinct.",
+        "Evidence limitations must be visible."
+      ],
+      "applicable_experience_rules": ["001", "003", "004", "005", "008"]
+    },
+    {
+      "id": "scenario-003",
+      "title": "Possible safety-critical equipment issue",
+      "status": "DEFINED_EVALUATION_SCENARIO",
+      "feature_ref": "context/features/feature-003-safety-intervention.md",
+      "situation": {
+        "time": "7:40 AM",
+        "pickup_scheduled": "8:00 AM",
+        "equipment": "Bobcat T66 #2188",
+        "displayed_status": ["Available", "Reservation assigned", "Fueled", "Inspection complete"],
+        "prior_inspection_note": "\"Hydraulic line looks a little worn. Probably fine for another rental but someone should look at it.\" — dictated by Yard Associate during yesterday's return inspection; inspection nevertheless marked Passed.",
+        "maintenance_records": { "hydraulic_hose_operating_hours": 1842, "manufacturer_recommendation_hours": 1800 },
+        "qualified_mechanic_at_branch": false,
+        "equivalent_equipment_available": false,
+        "customer_arrival_window_minutes": 20
+      },
+      "competing_consequences": {
+        "if_blocked_or_delayed": ["customer impact may be High", "revenue/operational impact may be High"],
+        "if_allowed_and_hydraulic_line_fails": ["potential safety impact may be High"]
+      },
+      "working_risk_assessment": {
+        "consequence": "High on both paths, with safety potentially more severe",
+        "irreversibility": "allowing a potentially unsafe rental could have High irreversibility if failure causes injury; blocking/delaying is more reversible but still has residual customer/business cost",
+        "evidentiary_uncertainty": "Moderate — two signals of risk, but no qualified mechanic has determined the hose unsafe",
+        "time_sensitivity": "High — pickup occurs in 20 minutes"
+      },
+      "working_behavior": {
+        "permitted": [
+          "Observe: identify the combination of wear note and exceeded maintenance interval",
+          "Explain: expose the supporting inspection note, operating hours, and manufacturer recommendation",
+          "As a WORKING HYPOTHESIS, prevent ordinary checkout progression until appropriate human review occurs",
+          "Prepare safe operational alternatives (equivalent equipment at nearby branches, estimated transfer time, substitute equipment classes, customer schedule flexibility, upgrade options, delivery alternatives)"
+        ],
+        "prohibited": [
+          "Claiming 'Equipment unsafe' unless a qualified determination supports that statement"
+        ],
+        "required_language_instead": "\"Safety review required\" or equivalent behavioral meaning",
+        "unresolved": "The exact human role authorized to clear or fail the equipment."
+      },
+      "lessons": [
+        "Safety can require asymmetric evidentiary thresholds.",
+        "High-consequence uncertainty may justify temporary intervention before proof of failure exists.",
+        "Time sensitivity is distinct from consequence and evidentiary uncertainty.",
+        "Permission is separate from risk.",
+        "When AI introduces friction, it should help resolve the operational consequences."
+      ],
+      "applicable_experience_rules": ["002", "004", "005", "006", "007", "010"]
+    }
+  ],
+  "revalidation_note": "These scenario records are frozen evaluation fixtures as documented in product.md Section 8. They are not live product data and must not be treated as current inventory, customer, or equipment state."
+}
