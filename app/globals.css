@@ -4,12 +4,50 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/**
+ * Contera Threshold Design System tokens — context/design-system.md §1,
+ * mirrored from context/data/design-tokens.json. These are the DEFINED
+ * presentation tokens for the governance-tier surfaces (Finding, Prepared
+ * Action, Approval, Resolved) used by the FEATURE-001 experience.
+ * Everything else in this file (shadcn's own --primary/--secondary/etc.
+ * tokens below) is unrelated generic UI chrome, not a Threshold token.
+ */
+@theme {
+  --color-threshold-gray-950: #101014;
+  --color-threshold-gray-900: #17181c;
+  --color-threshold-gray-800: #232429;
+  --color-threshold-gray-700: #3a3b42;
+  --color-threshold-gray-600: #53555e;
+  --color-threshold-gray-500: #6b6d76;
+  --color-threshold-gray-400: #8c8e97;
+  --color-threshold-gray-300: #a8aab3;
+  --color-threshold-gray-200: #d2d3d9;
+  --color-threshold-gray-100: #e9eaee;
+  --color-threshold-gray-50: #f5f5f7;
+
+  --color-threshold-canvas: #fbfbfc;
+  --color-threshold-surface: #ffffff;
+  --color-threshold-surface-sunken: #f5f5f7;
+
+  --color-threshold-accent-50: #f1f0fe;
+  --color-threshold-accent-200: #c7c4f5;
+  --color-threshold-accent-500: #5e54f2;
+  --color-threshold-accent-on-dark: #8b85f7;
+
+  --color-threshold-ok: #4b8768;
+  --color-threshold-err: #b15454;
+
+  --font-display: var(--font-inter-tight), Inter, sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --font-systematic: var(--font-ibm-plex-mono), monospace;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-ibm-plex-mono);
+  --font-heading: var(--font-inter-tight);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
