@@ -78,6 +78,23 @@ A label stays in the Eyebrow voice even when the value next to it is Systematic 
 
 Display should read as a clear step up from everything else on the page — meaningfully larger and heavier than a Section label, with tightened tracking. Section labels, Body, and Eyebrow stay at their current sizes; the contrast comes from widening the gap upward, not shrinking everything else down. In practice: `text-2xl font-semibold tracking-tight` for Display (up from the prior `text-xl font-medium`), Section labels unchanged.
 
+### Point-size scale
+
+**Status: WORKING HYPOTHESIS**, selected via a controlled Figma comparison against real FEATURE-001 content, for rapid comprehension on operational surfaces. Not yet DEFINED — pending implementation in code and validation on a second, differently-shaped screen.
+
+| Voice | Size | Note |
+|---|---|---|
+| Display | 24px | Unchanged, DEFINED — see Scale above. |
+| Section label | 14px | Unchanged, DEFINED. |
+| Body / primary content | 16px | |
+| Secondary / supporting content | 14px | |
+| Metadata / caption | 12px | |
+| Eyebrow | 11px | Held constant in the comparison; not independently validated against 16px neighbors. |
+| Systematic | inherits the role it plays | Not an independent tier — sized to whichever role above it substitutes for. |
+| Hero Stat | 20px | Unchanged for now; its step-up over Body content has compressed against the new 16px baseline — recheck before promoting. |
+
+**Operational density principle (WORKING HYPOTHESIS):** Contera's operational surfaces optimize for rapid comprehension before maximum density. Compact scales may still suit expert/technical surfaces where density carries more task value. Which surfaces qualify as which is not yet enumerated.
+
 ---
 
 ## 3. The governance-tier visual language
@@ -121,7 +138,32 @@ Because this is still a hypothesis, don't apply it retroactively to every screen
 
 ---
 
-## 6. Relationship to the other governing documents
+## 6. Spacing and vertical rhythm
+
+**Status: WORKING HYPOTHESIS**, selected via controlled Figma comparisons against real FEATURE-001 content. Not yet DEFINED — pending implementation in code and validation on a second, differently-shaped screen. An early proof-of-concept had a construction artifact that rendered some gaps larger than the values below; the values here are the selected design intent, not a measurement of that proof-of-concept — V3 must visually validate the actual implemented tokens, not assume Figma parity.
+
+### Semantic spacing ladder
+
+Four relationship types, each with its own gap, deliberately distinct so adjacent levels aren't confusable:
+
+| Level | Gap | Relationship |
+|---|---|---|
+| Related Stack | 4px | Two elements forming one semantic unit (a line qualifies the one above it — not a new fact) |
+| Related content | 12px | Separate elements within the same content group |
+| Distinct peers | 16px | Peer fields/columns within a row, or stacked cards in a column |
+| New/unrelated group | 24px | Start of a genuinely new information group (e.g. after a divider) |
+
+Field label → value gap (2px) is tighter than and separate from this ladder — a label always directly captions its own value, which is a different relationship than any of the four above.
+
+### Selected decisions
+
+- **Field-row/column gap: 16px** (Distinct peers). Selected after a controlled 16px-vs-24px comparison with everything else held constant: 24px produced no meaningful improvement in scanability, wrapping, card height, or field distinction at the tested card width, while consuming additional horizontal space.
+- **Surface padding: 24px top/bottom, 20px left/right** (asymmetric). Selected — compact horizontally, calm vertically. Not a step toward general spaciousness; not license to widen other gaps.
+- **Related Stack: 4px.** Selected. Confirmed pairing: a payment-method caption and its metadata line ("Held on file — Mastercard ending 7723" / "Sep 3, 2026, 4:05 PM"). Candidate pairings — event + timestamp, status + explanation, person + role, file + metadata, evidence + source, action + supporting context — are not yet validated; each needs its own check before use. Build as an independent nested container with its own gap, not a shared base value plus a compensating adjustment.
+
+---
+
+## 7. Relationship to the other governing documents
 
 This document is authoritative for presentation the same way `components.md` is authoritative for schema — each owns one layer, neither overrides the other. A governance-tier rule change here (§3's revised Prepared-tier treatment) changes how an existing tier is *rendered*; it does not add, remove, or redefine a tier, a Product System rule, or an interaction primitive. If a presentation question turns out to require a product-behavior answer (for example, whether the Hero Stat pattern implies a new kind of data should exist), that stops here and goes to the Product System documents instead — this document does not invent product policy any more than the code implementing it may.
 
@@ -131,7 +173,7 @@ This document is authoritative for presentation the same way `components.md` is 
 
 The following are commonly expected parts of a token architecture that this source material does not specify. They are named here explicitly, per `context/manifest.md` §6, so that a missing field in `context/data/design-tokens.json` is read as a documented gap rather than an oversight:
 
-- Spacing/sizing scale (no spacing unit or scale is defined anywhere in this document).
+- A DEFINED spacing/sizing scale — see §6 for the current WORKING HYPOTHESIS; not yet promoted.
 - Border-radius tokens.
 - Elevation/shadow tokens beyond the qualitative "deep shadow" reference for the Approval tier in §3 (no shadow values, blur radii, or elevation scale are specified).
 - Motion/transition/animation tokens.
@@ -154,3 +196,7 @@ First formal capture of the Threshold system as its own governing document, sepa
 - No change to §1 (Color) or the unrevised parts of §3 — those matched what was already implemented and still do.
 
 Two items from the critique this document is based on were deliberately left unresolved by this pass, not silently dropped: the disclosure text inside "View details" (Feature 001's notices) still mixes label and value in one string, so it wasn't converted to Systematic — doing so would mean restructuring the underlying data shape, not just the styling, which is out of scope for a presentation-only pass. Money/date values embedded inside agent-generated prose (e.g. a Finding's inference sentence) were left as-is for the same reason.
+
+### v0.2
+
+Added a point-size typography scale (§2) and a spacing/vertical-rhythm system (§6, new — renumbers the prior §6 to §7), both WORKING HYPOTHESIS, selected via controlled Figma comparisons against real FEATURE-001 content. Not yet implemented in code or validated on a second screen shape. No change to §1, §3, or §4. No product policy resolved.

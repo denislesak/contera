@@ -46,7 +46,23 @@
       { "name": "Systematic", "typeface": "IBM Plex Mono", "numerals": "tabular", "usage": "Every value that is data rather than prose: dates/times, currency, rental/reservation/unit IDs, meter readings, phone numbers, counts, percentages, evidence/source citations." }
     ],
     "systematic_test": "If a value could be looked up, counted, compared, or copied, set it in mono with tabular numerals. If it's a sentence a human wrote or reads as prose, it's Body. If it names what you're looking at, it's Display or a Section label.",
-    "scale_status": "DEFINED — implemented and exercised across every screen type in the prototype (Reservation Detail baseline, Feature 001 Generations 1-3, Design Exploration A/B/C, Compare)."
+    "scale_status": "DEFINED — implemented and exercised across every screen type in the prototype (Reservation Detail baseline, Feature 001 Generations 1-3, Design Exploration A/B/C, Compare).",
+    "scale": {
+      "status": "WORKING_HYPOTHESIS",
+      "source": "design-system.md §2, 'Point-size scale'",
+      "selection_basis": "Controlled three-option Figma comparison (Compact 14/13/11, Readable 16/14/12, Balanced 15/13/11) against real FEATURE-001 content; chosen for rapid comprehension on operational surfaces.",
+      "voices": {
+        "display": { "px": 24, "status": "DEFINED", "note": "unchanged, not part of this test" },
+        "section_label": { "px": 14, "status": "DEFINED", "note": "unchanged" },
+        "body_primary": { "px": 16, "status": "WORKING_HYPOTHESIS" },
+        "secondary_supporting": { "px": 14, "status": "WORKING_HYPOTHESIS" },
+        "metadata_caption": { "px": 12, "status": "WORKING_HYPOTHESIS" },
+        "eyebrow": { "px": 11, "status": "WORKING_HYPOTHESIS", "note": "held constant during the comparison; not independently validated against 16px neighbors" },
+        "systematic": { "px": null, "status": "WORKING_HYPOTHESIS", "note": "inherits the size of the role it plays — not an independent tier" },
+        "hero_stat": { "px": 20, "status": "WORKING_HYPOTHESIS", "note": "unchanged for now; step-up over body content has compressed relative to the prior 14px baseline, recheck before promoting" }
+      },
+      "operational_density_principle": "Contera's operational surfaces optimize typography for rapid comprehension before maximum information density; more compact scales may suit expert/technical surfaces where density carries more task value. Which surfaces count as which is not yet enumerated."
+    }
   },
   "governance_tier_visual_language": {
     "status": "DEFINED",
@@ -67,6 +83,39 @@
     ],
     "note": "An icon never carries meaning alone; always sits beside a text label."
   },
+  "spacing": {
+    "status": "WORKING_HYPOTHESIS",
+    "source": "design-system.md §6",
+    "note": "An early Figma proof-of-concept had a construction artifact that rendered some gaps larger than these values; treat as evaluation history, not a measurement of these tokens. V3 must visually validate the actual implemented values.",
+    "ladder": [
+      { "level": "related_stack", "px": 4, "relationship": "two elements forming one semantic unit" },
+      { "level": "related_content", "px": 12, "relationship": "separate elements within the same content group" },
+      { "level": "distinct_peers", "px": 16, "relationship": "peer fields/columns within a row, or stacked cards in a column" },
+      { "level": "new_unrelated_group", "px": 24, "relationship": "start of a genuinely new information group" }
+    ],
+    "decision_status": "four-level semantic ladder derived from the selected spacing direction and subsequent controlled refinements; WORKING_HYPOTHESIS pending code implementation and second-screen validation",
+    "field_label_to_value_gap": {
+      "px": 2,
+      "note": "Tighter than and separate from the ladder above — a label always directly captions its own value, not a general content relationship."
+    },
+    "field_row_column_gap": {
+      "maps_to_ladder_level": "distinct_peers",
+      "decision_status": "selected",
+      "decision_rationale": "16px selected over 24px after a controlled comparison with everything else held constant: 24px produced no meaningful improvement in scanability, wrapping, card height, or field distinction at the tested card width, while consuming additional horizontal space."
+    },
+    "surface_padding": {
+      "top": 24, "bottom": 24, "left": 20, "right": 20,
+      "decision_status": "selected",
+      "note": "Deliberately asymmetric — compact horizontally, calm vertically. Not a step toward general spaciousness."
+    },
+    "related_stack": {
+      "maps_to_ladder_level": "related_stack",
+      "decision_status": "selected",
+      "confirmed_pairing": "payment method caption + its metadata line",
+      "candidate_unvalidated_pairings": ["event + timestamp", "status + explanation", "person + role", "file + metadata", "evidence + source", "action + supporting context"],
+      "implementation_note": "Build as an independent nested container with its own gap value, not a shared base spacing value plus a compensating adjustment."
+    }
+  },
   "hero_stat_pattern": {
     "status": "WORKING_HYPOTHESIS",
     "source": "design-system.md §5",
@@ -75,7 +124,7 @@
   },
   "undefined_token_categories": {
     "note": "These are gaps in the source material, not omissions from this file. Do not fill with an invented value. See context/design-system.md 'What this document does not define'.",
-    "spacing_scale": null,
+    "spacing_scale": "WORKING_HYPOTHESIS — see top-level 'spacing' field; not yet DEFINED",
     "border_radius": null,
     "elevation_shadow_scale": null,
     "motion_transition": null,
