@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { RENTAL_FIXTURE } from "@/lib/fixtures/feature-001-scenario";
+import { RENTAL_FIXTURE } from "@/lib/fixtures/rental-fixture";
 
 export default function Home() {
   return (

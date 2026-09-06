@@ -1,9 +1,9 @@
 import { Undo2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Field } from "./field";
-import type { RentalFixture } from "@/lib/fixtures/feature-001-scenario";
+import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 import { displayClass, eyebrowClass, systematicClass } from "./governance-surface";
-import { formatTime, FIXTURE_TIME_ZONE } from "@/lib/feature-001/conflict-model";
+import { formatTime, FIXTURE_TIME_ZONE } from "@/lib/format";
 
 /**
  * "Extend Rental" / "Add Note" and the rest of this header's CRUD affordances

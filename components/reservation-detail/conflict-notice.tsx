@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Info, Mail, AlertCircle, CheckCircle2, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { AgentActionState, ConflictAssessment } from "@/lib/feature-001/conflict-model";
-import { formatTime } from "@/lib/feature-001/conflict-model";
-import type { Feature001ScenarioState, RentalFixture } from "@/lib/fixtures/feature-001-scenario";
+import { formatTime } from "@/lib/format";
+import type { Feature001ScenarioState } from "@/lib/feature-001/scenario-state";
+import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 import {
   governanceCardClass,
   resolvedGlyphClass,

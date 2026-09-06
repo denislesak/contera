@@ -1,7 +1,7 @@
 import { CreditCard } from "lucide-react";
 import { SectionCard } from "./section-card";
 import { Field } from "./field";
-import type { RentalFixture } from "@/lib/fixtures/feature-001-scenario";
+import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 
 export function PaymentDepositCard({ rental }: { rental: RentalFixture }) {
   const p = rental.payment;

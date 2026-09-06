@@ -15,8 +15,8 @@
  * resolved here, and no Resolution Alternatives primitive is implemented
  * by this module. Do not add one without a Product Context change.
  */
-import type { Feature001ScenarioState } from "@/lib/fixtures/feature-001-scenario";
-import type { RentalFixture } from "@/lib/fixtures/feature-001-scenario";
+import type { Feature001ScenarioState } from "@/lib/feature-001/scenario-state";
+import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 import type { Finding } from "@/lib/contera/finding";
 import {
   FEATURE_001_MUTABLE_STATE_DEPENDENCIES,
@@ -25,6 +25,7 @@ import {
 import { canAdvancePastPreparation, revalidationRequired } from "@/lib/contera/prepared-action";
 import type { Approval } from "@/lib/contera/approval";
 import { computeApprovalRevalidationRequired } from "@/lib/contera/approval";
+import { formatTime } from "@/lib/format";
 
 export interface Recommendation {
   recommendationId: string;
@@ -227,13 +228,6 @@ export function checkRevalidation(
     changedFields.push("turnaround.requiredTurnaroundTime");
   }
   return { changedFields, conflictStillPresent: assessConflict(current).conflictDetected };
-}
-
-/** Branch-local display timezone for this fixture (matches the -05:00 offsets baked into the fixture data). */
-export const FIXTURE_TIME_ZONE = "America/Chicago";
-
-export function formatTime(iso: string): string {
-  return new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", timeZone: FIXTURE_TIME_ZONE });
 }
 
 /** The full set of records for one FEATURE-001 outreach episode. */

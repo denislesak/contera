@@ -1,8 +1,8 @@
 import { CalendarClock } from "lucide-react";
 import { SectionCard } from "./section-card";
 import { Field } from "./field";
-import type { RentalFixture } from "@/lib/fixtures/feature-001-scenario";
-import { formatTime } from "@/lib/feature-001/conflict-model";
+import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
+import { formatTime } from "@/lib/format";
 
 export function PickupReturnCard({ rental }: { rental: RentalFixture }) {
   return (

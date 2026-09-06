@@ -1,5 +1,5 @@
 import { FlaskConical, RotateCcw } from "lucide-react";
-import type { ScenarioControlKey } from "./reservation-detail-client";
+import type { ScenarioControlKey } from "./feature-001-reservation-detail";
 
 const CONTROLS: Array<{ key: ScenarioControlKey; label: string }> = [
   { key: "downstream-pickup-earlier", label: "Downstream reservation moves pickup earlier, to 10:30 AM" },

@@ -1,8 +1,8 @@
 import { History } from "lucide-react";
 import { SectionCard } from "./section-card";
-import type { RentalFixture } from "@/lib/fixtures/feature-001-scenario";
+import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 import { fieldLabelClass } from "./governance-surface";
-import { FIXTURE_TIME_ZONE } from "@/lib/feature-001/conflict-model";
+import { FIXTURE_TIME_ZONE } from "@/lib/format";
 
 export function ActivityCard({
   rental,
