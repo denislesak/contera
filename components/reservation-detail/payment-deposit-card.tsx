@@ -2,12 +2,12 @@ import { CreditCard } from "lucide-react";
 import { SectionCard } from "./section-card";
 import { Field } from "./field";
 import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
-import { metadataClass } from "./governance-surface";
+import { metadataClass, structuralIconClass } from "./governance-surface";
 
 export function PaymentDepositCard({ rental }: { rental: RentalFixture }) {
   const p = rental.payment;
   return (
-    <SectionCard title="Payment & Deposit" icon={<CreditCard />}>
+    <SectionCard title="Payment & Deposit" icon={<CreditCard className={structuralIconClass} />}>
       {/* Each Field + its caption is an independent Related Stack (4px) —
           built as its own nested container, not a shared spacing value plus
           a compensating adjustment (design-system.md §6). */}

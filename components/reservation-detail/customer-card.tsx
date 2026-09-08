@@ -1,12 +1,13 @@
 import { User } from "lucide-react";
 import { SectionCard } from "./section-card";
 import { Field } from "./field";
+import { structuralIconClass } from "./governance-surface";
 import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 
 export function CustomerCard({ rental }: { rental: RentalFixture }) {
   const c = rental.customer;
   return (
-    <SectionCard title="Customer" icon={<User />}>
+    <SectionCard title="Customer" icon={<User className={structuralIconClass} />}>
       <div className="flex items-start gap-3">
         <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-threshold-gray-100 text-xs font-medium text-threshold-gray-700">
           {c.name

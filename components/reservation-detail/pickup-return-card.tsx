@@ -1,12 +1,13 @@
 import { CalendarClock } from "lucide-react";
 import { SectionCard } from "./section-card";
 import { Field } from "./field";
+import { structuralIconClass } from "./governance-surface";
 import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 import { formatTime } from "@/lib/format";
 
 export function PickupReturnCard({ rental }: { rental: RentalFixture }) {
   return (
-    <SectionCard title="Pickup & Return" icon={<CalendarClock />}>
+    <SectionCard title="Pickup & Return" icon={<CalendarClock className={structuralIconClass} />}>
       <div className="grid grid-cols-2 gap-4">
         <Field label="Pickup branch" value={rental.pickupBranch} systematic={false} />
         <Field label="Return branch" value={rental.returnBranch} systematic={false} />

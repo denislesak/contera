@@ -1,7 +1,7 @@
 import { History } from "lucide-react";
 import { SectionCard } from "./section-card";
 import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
-import { metadataClass } from "./governance-surface";
+import { metadataClass, structuralIconClass } from "./governance-surface";
 import { FIXTURE_TIME_ZONE } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
@@ -14,7 +14,7 @@ export function ActivityCard({
 }) {
   const entries = [...extraEntries, ...rental.activity];
   return (
-    <SectionCard title="Activity" icon={<History />}>
+    <SectionCard title="Activity" icon={<History className={structuralIconClass} />}>
       <p className="mb-3 text-sm text-threshold-gray-600">Notes and events logged against this rental, most recent first.</p>
       {/* Distinct peers (16px) between entries — the sibling gap alone
           governs entry-to-entry separation; a divider must not also carry

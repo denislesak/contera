@@ -1,11 +1,12 @@
 import { Truck } from "lucide-react";
 import { SectionCard } from "./section-card";
 import { Field } from "./field";
+import { structuralIconClass } from "./governance-surface";
 import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 
 export function EquipmentCard({ rental }: { rental: RentalFixture }) {
   return (
-    <SectionCard title="Equipment" icon={<Truck />}>
+    <SectionCard title="Equipment" icon={<Truck className={structuralIconClass} />}>
       <p className="mb-3 text-base text-threshold-gray-700">
         {rental.equipmentName} · Unit {rental.unitId}
       </p>
