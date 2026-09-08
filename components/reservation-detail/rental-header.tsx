@@ -19,7 +19,7 @@ export function RentalHeader({
   scheduledReturnIso: string;
 }) {
   return (
-    <div className="rounded-lg border border-threshold-gray-100 bg-threshold-surface p-5">
+    <div className="rounded-lg border border-threshold-gray-100 bg-threshold-surface pt-6 pb-6 px-5">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <div className={eyebrowClass}>
@@ -50,7 +50,11 @@ export function RentalHeader({
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-4 border-t border-threshold-gray-100 pt-4 sm:grid-cols-4">
+      {/* Related key-data cluster (design-system.md §6): hugged, left-aligned,
+          content-sized fields with a 32px gap — not a stretched equal-width
+          grid. flex-wrap lets it degrade gracefully at narrow widths using
+          the existing 16px distinct-peers gap for wrapped rows. */}
+      <div className="mt-6 flex flex-wrap gap-x-8 gap-y-4 border-t border-threshold-gray-100 pt-4">
         <Field
           label="Rental start"
           systematic={false}

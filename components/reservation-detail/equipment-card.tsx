@@ -6,7 +6,7 @@ import type { RentalFixture } from "@/lib/fixtures/rental-fixture";
 export function EquipmentCard({ rental }: { rental: RentalFixture }) {
   return (
     <SectionCard title="Equipment" icon={<Truck />}>
-      <p className="mb-4 text-sm text-threshold-gray-700">
+      <p className="mb-3 text-base text-threshold-gray-700">
         {rental.equipmentName} · Unit {rental.unitId}
       </p>
       <div className="grid grid-cols-2 gap-4">
@@ -15,7 +15,7 @@ export function EquipmentCard({ rental }: { rental: RentalFixture }) {
         <Field label="Fuel level" value={rental.fuelLevel} systematic={false} />
         <Field label="Attachments included" value={rental.attachmentsIncluded} systematic={false} />
       </div>
-      <div className="mt-4 border-t border-threshold-gray-100 pt-4">
+      <div className="mt-6 border-t border-threshold-gray-100 pt-4">
         <Field label="Condition at checkout" value={rental.conditionAtCheckout} systematic={false} />
       </div>
     </SectionCard>

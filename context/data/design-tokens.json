@@ -19,7 +19,7 @@
       "white": "#FFFFFF"
     },
     "surfaces": {
-      "canvas": { "hex": "#FBFBFC", "usage": "page background" },
+      "canvas": { "hex": "#F0F0F7", "usage": "page background", "note": "Selected via Baseline Reservation Detail Convergence review (design-system.md v0.3) — a small accent-500 influence blended into gray-50, replacing the prior #FBFBFC." },
       "surface": { "hex": "#FFFFFF", "usage": "cards" },
       "surface-sunken": { "hex": "#F5F5F7", "usage": "recessed areas — muted panels, footers" }
     },
@@ -43,9 +43,22 @@
       { "name": "Section label", "typeface": "Inter Tight", "weight": 500, "usage": "Card/section titles." },
       { "name": "Body", "typeface": "Inter", "weight": 400, "usage": "Prose: descriptions, instructions, rationale." },
       { "name": "Eyebrow / field label", "typeface": "Inter", "case": "uppercase", "tracking": "wide", "size": "small", "usage": "Structural labels — never the value itself." },
-      { "name": "Systematic", "typeface": "IBM Plex Mono", "numerals": "tabular", "usage": "Every value that is data rather than prose: dates/times, currency, rental/reservation/unit IDs, meter readings, phone numbers, counts, percentages, evidence/source citations." }
+      { "name": "Systematic", "typeface": "IBM Plex Mono", "numerals": "tabular", "usage": "Values with semantic precision — an exact system reference, a precise operational value materially affecting a decision/state/sequence/consequence, or an audit/evidentiary value. Not determined by datatype alone; see systematic_semantic_test." }
     ],
-    "systematic_test": "If a value could be looked up, counted, compared, or copied, set it in mono with tabular numerals. If it's a sentence a human wrote or reads as prose, it's Body. If it names what you're looking at, it's Display or a Section label.",
+    "systematic_test": "Legacy datatype framing, superseded by systematic_semantic_test below (design-system.md v0.3) — retained only as historical record.",
+    "systematic_semantic_test": {
+      "status": "WORKING_HYPOTHESIS",
+      "source": "design-system.md §2, 'The Systematic test' (v0.3)",
+      "principle": "Systematic typography communicates semantic precision, not datatype. The same datatype may take either voice depending on what the value is for in a given experience.",
+      "classification_mechanism_status": "UNRESOLVED",
+      "classification_mechanism_note": "How an AI implementation agent derives a field's semantic role (operationally consequential / evidentiary / merely contextual) from Product/Behavior Context alone, for a field not yet classified, is not currently derivable from product.md's ontology, risk model, or governance model without a human decision to anchor it. Not resolved by this token file or design-system.md v0.3.",
+      "baseline_instances": {
+        "note": "Illustrative — validated for this baseline only, not an exhaustive registry.",
+        "systematic": ["rental_id", "reservation_id", "unit_id", "meter_reading", "scheduled_return_hero_stat", "activity_timestamp"],
+        "body": ["phone_number", "rental_start", "pickup_time", "ordinary_product_summary_currency"],
+        "context_dependent_unresolved": ["currency_in_reconciliation_or_verification_context"]
+      }
+    },
     "scale_status": "DEFINED — implemented and exercised across every screen type in the prototype (Reservation Detail baseline, Feature 001 Generations 1-3, Design Exploration A/B/C, Compare).",
     "scale": {
       "status": "WORKING_HYPOTHESIS",
@@ -114,6 +127,14 @@
       "confirmed_pairing": "payment method caption + its metadata line",
       "candidate_unvalidated_pairings": ["event + timestamp", "status + explanation", "person + role", "file + metadata", "evidence + source", "action + supporting context"],
       "implementation_note": "Build as an independent nested container with its own gap value, not a shared base spacing value plus a compensating adjustment."
+    },
+    "related_key_data_cluster": {
+      "status": "WORKING_HYPOTHESIS",
+      "source": "design-system.md §6, 'Related key-data cluster' (v0.3)",
+      "decision_status": "selected",
+      "composition": "hugged, left-aligned, content-sized — not equal-width grid columns, not space-between, not stretched children",
+      "gap_px": 32,
+      "note": "Above distinct_peers (16px) on the ladder; reserved for this cluster pattern, not general peer spacing. Must tolerate a different number of fields and different value lengths without reverting to a fixed-column grid. Not yet validated on a second, differently-shaped screen."
     }
   },
   "hero_stat_pattern": {

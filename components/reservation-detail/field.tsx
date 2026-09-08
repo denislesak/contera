@@ -31,6 +31,12 @@ export function Field({
       <div
         className={cn(
           systematic ? systematicClass : bodyClass,
+          // Secondary/supporting content (design-system.md §2 point-size scale,
+          // 14px) — the size ordinary field values play here. Set locally
+          // (not on the shared systematicClass) since this component is
+          // baseline-only and systematicClass is also reused where a
+          // different role/size may apply (e.g. the header's Hero Stat).
+          systematic && "text-sm",
           !systematic && emphasis && "font-medium text-threshold-gray-900",
           "mt-0.5"
         )}

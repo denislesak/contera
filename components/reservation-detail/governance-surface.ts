@@ -50,11 +50,19 @@ export const eyebrowClass = "text-[11px] font-medium uppercase tracking-wide tex
 /**
  * Same Eyebrow voice, tuned quieter for dense repeated field grids (Equipment,
  * Customer, Pickup & Return, Payment & Deposit) so labels recede rather than
- * compete — design-system.md defines Eyebrow's role and case/tracking, not an
- * exact size/color, so this is a weight variant of the same voice, not a new
- * one. Reserve the stronger `eyebrowClass` for the header's hero region.
+ * compete — a color/weight variant, not a new one. Sized at the single
+ * canonical Eyebrow point size (design-system.md §2, 11px) rather than a
+ * second, smaller fork of the scale; quietness comes from color only.
+ * Reserve the stronger `eyebrowClass` for the header's hero region.
  */
-export const fieldLabelClass = "text-[10px] font-medium uppercase tracking-wide text-threshold-gray-400";
+export const fieldLabelClass = "text-[11px] font-medium uppercase tracking-wide text-threshold-gray-400";
+
+/**
+ * Metadata / caption voice (design-system.md §2 point-size scale, 12px) —
+ * timestamps, captions, and other minor supporting detail that is not a
+ * structural field label (so not uppercase/tracked-wide like Eyebrow).
+ */
+export const metadataClass = "text-xs text-threshold-gray-500";
 
 /** Systematic voice — every value that is data rather than prose (design-system.md §2). */
 export const systematicClass = "font-systematic tabular-nums text-threshold-gray-900";

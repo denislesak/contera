@@ -19,8 +19,8 @@ export function SectionCard({
   className?: string;
 }) {
   return (
-    <section className={cn("rounded-lg border border-threshold-gray-100 bg-threshold-surface p-5", className)}>
-      <div className="mb-4 flex items-center gap-2">
+    <section className={cn("rounded-lg border border-threshold-gray-100 bg-threshold-surface pt-6 pb-6 px-5", className)}>
+      <div className="mb-3 flex items-center gap-2">
         {icon ? <span className={structuralIconClass}>{icon}</span> : null}
         <h2 className={sectionLabelClass}>{title}</h2>
       </div>
