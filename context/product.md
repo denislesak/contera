@@ -630,13 +630,15 @@ Use the least interruptive treatment sufficient for the intervention window and 
 
 Rule 011 — Use progressive disclosure to minimize decision burden
 
-Status: DEFINED, proposed via Feature 001 experience evaluation
+Status: DEFINED, proposed via Feature 001 experience evaluation; refined via approval-boundary Context-gap analysis (see Version notes)
 
 Show only the information necessary to understand the situation and make the immediate decision.
 
-Supporting evidence, reasoning, provenance, uncertainty details, and prepared-action metadata should remain inspectable when relevant, but need not be simultaneously visible.
+At a human approval boundary, the decision object — the specific content a linked Prepared Action would execute — and the immediate consequence of approving it take presentation priority over supporting rationale, evidence, and uncertainty detail. A human should be able to understand what they are authorizing without having to discover it. This does not require the entire artifact to be expanded by default; a summary sufficient to convey the decision object and its immediate consequence, with the full content directly inspectable, satisfies this requirement.
 
-Disclosure depth should increase when additional information is necessary to evaluate uncertainty, consequence, or the proposed action.
+Supporting evidence, reasoning, provenance, and uncertainty details should remain inspectable when relevant, but need not be simultaneously visible.
+
+Disclosure depth — including how much of the decision object itself must be immediately visible versus one inspection step away — should increase as consequence and irreversibility increase (see Section 5.1–5.2). This rule does not prescribe a specific layout, component, or communication channel.
 
 ---
 
@@ -1233,6 +1235,18 @@ Approved via cross-functional reconciliation review, prompted by a second prefli
 - Added a prototype/fixture note clarifying that Required Turnaround Time's production calculation and customer communication channel selection may be represented with labeled fixture data for prototyping, without that data resolving either open policy question (2.2, 7.2). Detailed in `components.md`.
 
 No other unresolved item in Section 9, and no rule, permission, or governance decision outside this scoped clarification, was changed.
+
+### v0.2 — addendum 3 (approval-boundary presentation priority)
+
+Approved via human cross-functional review of a Context-gap analysis prompted by generated FEATURE-001 evidence (the "Possible scheduling conflict" intervention permitted approval before either its supporting evidence or its own Prepared Action content had been inspected). Summary of changes, confined to Rule 011:
+
+- Refined Rule 011 to distinguish the decision object (the content a linked Prepared Action would execute) and its immediate consequence — which now take presentation priority at a human Approval boundary — from supporting rationale, evidence, and uncertainty detail, which may remain progressively disclosed as before.
+- Clarified that this does not require a Prepared Action's full content to be expanded by default; a summary sufficient to convey the decision object and its immediate consequence, with full content directly inspectable, satisfies the rule.
+- Added that disclosure depth for both the decision object and its supporting rationale should scale with consequence and irreversibility (Section 5.1–5.2), rather than applying one fixed treatment to every Prepared Action.
+- Explicitly noted the rule does not prescribe a layout, component, or communication channel. No unresolved policy (Section 9) was resolved by this pass — in particular, the communication-channel and Required-Turnaround-Time questions this rule's own example touches remain UNRESOLVED.
+- `context/behaviors.md` Primitive 5 (Approval) was given a corresponding cross-reference; `context/components.md` was not changed, since this pass does not add a new [TYPE]/[GUARD]-level invariant. See that document's own change log for the exact edit.
+
+This finding was not classified as an implementation fidelity failure — no prior version of this rule required what FEATURE-001's implementation was found to lack. It was classified as a Context gap and resolved at this layer accordingly.
 
 ## v0.1
 

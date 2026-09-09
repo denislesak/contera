@@ -69,13 +69,16 @@ Does the output ever silently invent a value for something the canonical documen
 ### 4.9 Resolution alternatives (Rule 007) [DOC]
 Where the agent introduces friction (a Progress hold or Escalation), does it also prepare and present viable alternatives (`context/behaviors.md` primitive 9)? Feature 001 is a known, documented gap against this rule (it stops at contacting the renter) — an evaluation of Feature 001 should note this gap rather than treat its absence as a defect newly discovered.
 
+### 4.10 Decision-object presentation priority — Rule 011, Approval primitive [DOC]
+At a human Approval boundary, can the human understand the linked Prepared Action's decision object — the specific content it would execute — and the immediate consequence of approving it, without having to discover it first? This is independent of whether supporting evidence, rationale, or uncertainty detail is expanded; those may remain progressively disclosed. This criterion does not require a Prepared Action's full content to be expanded by default — a summary sufficient to convey the decision object and its immediate consequence, with the full content directly inspectable, satisfies Rule 011. How much must be immediately visible versus one inspection step away should be judged against the action's consequence and irreversibility (`product.md` §5.1–5.2), not against one fixed layout expectation. This dimension applies to any feature using the Approval primitive, not only Feature 001.
+
 ## 5. Scenario-based evaluation
 
 Scenarios 001–003 (`context/data/evaluation-scenarios.json`, `product.md` §8) are the canonical behavioral tests. Evaluating a generated implementation of a feature means walking its corresponding scenario's "lessons produced" list as a checklist, in addition to the dimensions in §4:
 
 | Scenario | Feature | Key checks beyond §4 |
 |---|---|---|
-| 001 — Predicted inventory collision | `context/features/feature-001-predicted-conflict.md` | Prediction never rendered as fact; downstream customer not contacted; Execute phase gated by Approval with the five named Rule 009 dependencies revalidated |
+| 001 — Predicted inventory collision | `context/features/feature-001-predicted-conflict.md` | Prediction never rendered as fact; downstream customer not contacted; Execute phase gated by Approval with the five named Rule 009 dependencies revalidated; the drafted outreach's decision object (recipient, channel, message) understandable before Approval without discovery (§4.10) |
 | 002 — Suspected new equipment damage | `context/features/feature-002-damage-review.md` | Agent never states liability or a settled damage conclusion; Prepared Action (damage report) routed to Escalation, not Approval; Correction offers at minimum the five Scenario 002 outcomes |
 | 003 — Possible safety-critical equipment issue | `context/features/feature-003-safety-intervention.md` | Agent never asserts "unsafe," only "safety review required"; block does not require proof of failure (Rule 006); Resolution Alternatives are prepared alongside the hold; no invented approver/override role |
 

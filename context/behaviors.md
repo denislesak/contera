@@ -146,7 +146,7 @@ This document does not invent a persistence architecture beyond this distinction
 
 **Purpose:** Provide the governance interaction through which an authorized human permits or rejects execution of a Prepared Action.
 
-**Behavioral responsibility:** Present the linked Prepared Action together with its supporting Finding/Evidence; immediately before execution, revalidate that the supporting facts still hold, when the Prepared Action has a mutable-state dependency (Rule 009); record the decision and the deciding human (2.3, Approval object). Approval is the authorization event itself, not the artifact being authorized — that separation is exactly what distinguishes it from Prepared Action.
+**Behavioral responsibility:** Present the linked Prepared Action's decision object and the immediate consequence of approving it with priority over its supporting Finding/Evidence (Rule 011) — the approving human must be able to understand what they are authorizing without having to discover it, though the exact presentation, and how much of the Prepared Action's content is immediately visible versus one inspection step away, is an implementation choice that scales with consequence and irreversibility; immediately before execution, revalidate that the supporting facts still hold, when the Prepared Action has a mutable-state dependency (Rule 009); record the decision and the deciding human (2.3, Approval object). Approval is the authorization event itself, not the artifact being authorized — that separation is exactly what distinguishes it from Prepared Action.
 
 **When it appears:** Whenever a Prepared Action's governance outcome is Approval Required — e.g., Feature 001's predicted-return-conflict communication (7.1).
 
@@ -331,3 +331,13 @@ Prepared Action was folded into Approval in v0.1; this has been reversed in v0.2
 6. Filename/reference hygiene. This document is now published at `behaviors.md` (previously `interaction-primitives-v0.2.md`, and before that `v0.1.md`), matching its content version, and its own "Derived from" line now correctly cites `product.md`, which previously did not exist under that exact filename.
 
 No other primitive was redesigned, and no unresolved product policy named above (Escalation's routing target, the authorized-approver RBAC gap, revalidation field specifics, equivalent-equipment scope, and the rest) was resolved by this revision.
+
+---
+
+## Change log — approval-boundary presentation priority (Rule 011 cross-reference)
+
+Approved via human cross-functional review of a Context-gap analysis prompted by generated FEATURE-001 evidence. Confined to primitive 5 (Approval):
+
+1. Added a clause to Approval's "Behavioral responsibility" cross-referencing `product.md` Rule 011 (as refined): the linked Prepared Action's decision object and immediate consequence take presentation priority over supporting Finding/Evidence, though the exact presentation, and how much is immediately visible versus one inspection step away, remains an implementation choice scaled by consequence and irreversibility.
+2. No other field of primitive 5 changed. Primitive 4 (Prepared Action) was reviewed and left unchanged — it defines what a Prepared Action is, independent of any governance gate; the presentation-priority question belongs to Approval, not to the artifact itself, consistent with why these two primitives were separated in the first place (see the v0.1 → v0.2 change log above).
+3. No unresolved product policy was resolved by this pass, and no other primitive was modified.
