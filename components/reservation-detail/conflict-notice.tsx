@@ -24,13 +24,28 @@ import { CONFLICT_NOTICE_BINDINGS } from "./conflict-notice.bindings";
  * context/behaviors.md primitives 1, 3, 4, 5, 8. See
  * conflict-notice.bindings.ts for the ContextBinding declarations.
  *
- * Visual tiering (design-system.md §3): the always-visible summary is
- * Finding/Recommendation content and stays neutral. Only the "Preview
- * message" disclosure — the actual drafted Prepared Action artifact — takes
- * the accent-200 treatment. accent-500 is reserved to the Approve/Send
- * action, per §1. This composes multiple tiers within one progressively
- * disclosed surface rather than applying one tier's treatment to the whole
- * card.
+ * Visual tiering (design-system.md §3): the headline summary is
+ * Finding/Recommendation content and stays neutral. The Prepared Action
+ * block — recipient, channel, and the actual drafted message — takes the
+ * Prepared-tier treatment and, per the refined Rule 011 (approval-boundary
+ * presentation priority; see product.md §6 and behaviors.md primitive 5),
+ * is always visible rather than behind a disclosure: the human must be able
+ * to understand what they are authorizing without discovering it first.
+ * Supporting evidence/rationale remains behind "View details," since Rule
+ * 011 only requires the decision object and its immediate consequence to
+ * be undiscoverable-free, not the supporting material. Per design-system.md
+ * §1/§3 (v0.5): the thread stays accent-200 (a non-text element), but the
+ * icon and label use accent-700 — accent-200 measured ~1.5:1 as text/icon
+ * foreground and failed the v0.4 contrast invariant. accent-500 is
+ * reserved to the Approve/Send action, per §1. This composes multiple tiers
+ * within one progressively disclosed surface rather than applying one
+ * tier's treatment to the whole card.
+ *
+ * This is a local, feature-scoped implementation choice within Rule 011's
+ * compliant solution space (full message inline, rather than a decision
+ * summary with the message one click away) — it does not establish that
+ * every Prepared Action must render fully expanded; see product.md §6,
+ * Rule 011's own "does not prescribe a specific layout" clause.
  *
  * Scope boundary: this component does not implement Resolution
  * Alternatives (PRIMITIVE-009) and does not claim to satisfy Rule 007 —
@@ -60,7 +75,6 @@ export function ConflictNotice({
   onRecheck: () => void;
 }) {
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const [previewOpen, setPreviewOpen] = useState(false);
 
   if (!agentAction || agentAction.inference.status === "superseded" || agentAction.preparedAction.status === "withdrawn") {
     return (
@@ -128,20 +142,30 @@ export function ConflictNotice({
                 </div>
               ) : null}
 
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-sm">
-                <button
-                  className="inline-flex items-center gap-1 text-threshold-gray-600 hover:text-threshold-gray-900"
-                  onClick={() => setDetailsOpen((v) => !v)}
-                >
-                  View details {detailsOpen ? <ChevronUp className="size-3.5" /> : <ChevronDown className="size-3.5" />}
-                </button>
-                <button
-                  className="inline-flex items-center gap-1 text-threshold-gray-600 hover:text-threshold-gray-900"
-                  onClick={() => setPreviewOpen((v) => !v)}
-                >
-                  Preview message {previewOpen ? <ChevronUp className="size-3.5" /> : <ChevronDown className="size-3.5" />}
-                </button>
+              <div className="mt-3 space-y-2 rounded-md border-l-[3px] border-l-threshold-accent-200 bg-threshold-surface-sunken p-3 text-sm">
+                <div className="mb-1 flex items-center gap-1.5">
+                  <Mail className="size-4 text-threshold-accent-700" />
+                  <span className="text-xs font-medium uppercase tracking-wide text-threshold-accent-700">Prepared</span>
+                </div>
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  <div>
+                    <div className={eyebrowClass}>To</div>
+                    <div className="mt-0.5 text-threshold-gray-800">{content.to}</div>
+                  </div>
+                  <div>
+                    <div className={eyebrowClass}>Channel (fixture — channel policy unresolved)</div>
+                    <div className="mt-0.5 text-threshold-gray-800 uppercase">{content.channel.value}</div>
+                  </div>
+                </div>
+                <p className={bodyClass}>{content.message}</p>
               </div>
+
+              <button
+                className="mt-3 inline-flex items-center gap-1 text-sm text-threshold-gray-600 hover:text-threshold-gray-900"
+                onClick={() => setDetailsOpen((v) => !v)}
+              >
+                View details {detailsOpen ? <ChevronUp className="size-3.5" /> : <ChevronDown className="size-3.5" />}
+              </button>
 
               {detailsOpen ? (
                 <div className="mt-3 space-y-3 rounded-md bg-threshold-surface-sunken p-3 text-sm">
@@ -171,26 +195,6 @@ export function ConflictNotice({
                     <div className={eyebrowClass}>Recommendation</div>
                     <p className={`${bodyClass} mt-1`}>{recommendation.statement}</p>
                   </div>
-                </div>
-              ) : null}
-
-              {previewOpen ? (
-                <div className="mt-3 space-y-2 rounded-md border-l-[3px] border-l-threshold-accent-200 bg-threshold-surface-sunken p-3 text-sm">
-                  <div className="mb-1 flex items-center gap-1.5">
-                    <Mail className="size-4 text-threshold-accent-200" />
-                    <span className="text-xs font-medium uppercase tracking-wide text-threshold-accent-200">Prepared</span>
-                  </div>
-                  <div className="flex flex-wrap gap-x-6 gap-y-2">
-                    <div>
-                      <div className={eyebrowClass}>To</div>
-                      <div className="mt-0.5 text-threshold-gray-800">{content.to}</div>
-                    </div>
-                    <div>
-                      <div className={eyebrowClass}>Channel (fixture — channel policy unresolved)</div>
-                      <div className="mt-0.5 text-threshold-gray-800 uppercase">{content.channel.value}</div>
-                    </div>
-                  </div>
-                  <p className={bodyClass}>{content.message}</p>
                 </div>
               ) : null}
 

@@ -25,8 +25,9 @@
     },
     "accent": {
       "accent-50": { "hex": "#F1F0FE", "usage": "Reserved, not yet assigned a use" },
-      "accent-200": { "hex": "#C7C4F5", "usage": "The Prepared-tier thread, and the tier-signal icon and label that accompany it." },
+      "accent-200": { "hex": "#C7C4F5", "usage": "The Prepared-tier thread only (non-text). Not used for text/icon foreground as of v0.4's contrast invariant; see accent-700." },
       "accent-500": { "hex": "#5E54F2", "usage": "Exactly two things, anywhere in the product: the Approve/Send action's fill, and the Approval tier's label color. Nothing else may use it at full strength." },
+      "accent-700": { "hex": "#4F46D0", "usage": "Added in v0.5. The Prepared-tier icon and label text, replacing accent-200 there (~1.5:1, failed WCAG AA) with a darker same-hue value (~6.7:1). Distinct from accent-500, not a third use of it." },
       "accent-on-dark": { "hex": "#8B85F7", "usage": "Supplementary text/icon accents on a dark (Approval-tier) surface." }
     },
     "resolved_state_glyphs": {
@@ -82,7 +83,7 @@
     "source": "design-system.md §3",
     "tiers": [
       { "tier": "Finding / Recommendation", "surface": "white", "border": "1px gray-100", "shadow": "none", "color": "none" },
-      { "tier": "Prepared Action", "surface": "white (neutral; never a fill)", "thread": { "position": "left edge", "width": "3px", "color": "accent-200" }, "icon_color": "accent-200", "label_color": "accent-200" },
+      { "tier": "Prepared Action", "surface": "white (neutral; never a fill)", "thread": { "position": "left edge", "width": "3px", "color": "accent-200" }, "icon_color": "accent-700", "label_color": "accent-700", "note": "icon/label moved from accent-200 to accent-700 in v0.5 (contrast); thread remains accent-200 as a non-text element" },
       { "tier": "Approval", "surface": "inverts to gray-950", "shadow": "deep", "label_color": "accent-500", "action_fill": "accent-500 (Approve/Send button)", "supplementary_accent": "accent-on-dark" },
       { "tier": "Execution/Progress resolved", "surface": "gray-50", "opacity": "reduced", "glyph": "ok/err only, never a fill" }
     ]
@@ -92,7 +93,7 @@
     "source": "design-system.md §4",
     "roles": [
       { "role": "Structural", "size": "size-4", "color": "gray-500", "note": "never colored; orient, don't signal" },
-      { "role": "Tier-signal", "size": "size-5", "colors_by_tier": { "Finding": "neutral", "Resolved": "neutral (ok/err glyph)", "Prepared": "accent-200", "Approval": "accent-on-dark" } }
+      { "role": "Tier-signal", "size": "size-5", "colors_by_tier": { "Finding": "neutral", "Resolved": "neutral (ok/err glyph)", "Prepared": "accent-700", "Approval": "accent-on-dark" } }
     ],
     "note": "An icon never carries meaning alone; always sits beside a text label."
   },

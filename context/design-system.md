@@ -2,7 +2,7 @@
 
 **Context System provenance:** This document is the canonical, authoritative presentation/visual-semantics layer — see `context/manifest.md` §2 (subordinate to `context/product.md` and `context/behaviors.md` for anything behavioral; must not introduce behavioral rules). It was originally migrated from `source/design-system.md`; that origin is historical provenance only (`context/manifest.md` §1) — `source/design-system.md` is not resynchronized with this document and carries no current authority. Only what is DEFINED or WORKING HYPOTHESIS below is implemented guidance — where the source material did not support a complete token architecture, that gap is carried into `context/data/design-tokens.json` explicitly rather than filled in.
 
-**Version:** 0.4
+**Version:** 0.5
 **Status:** Working design specification
 **Purpose:** Source of truth for Contera's visual presentation layer — color, type, elevation, and the governance-tier visual language. Governs *how things look*, never *what the product does*. It does not modify, and is not modified by, `product.md`, `behaviors.md`, `shadcn-implementation-analysis-v0.1.md`, or `components.md`. Where those documents define governance tiers, capability, or behavior, this document only defines how that meaning is rendered.
 
@@ -38,8 +38,9 @@ This document uses the same status vocabulary as the Product System, for the sam
 | Token | Hex | Where it's allowed |
 |---|---|---|
 | `accent-50` | `#F1F0FE` | Reserved, not yet assigned a use |
-| `accent-200` | `#C7C4F5` | The Prepared-tier thread, and (as of this revision) the tier-signal icon and label that accompany it. See §3. |
+| `accent-200` | `#C7C4F5` | The Prepared-tier thread only (non-text — border/fill use is exempt from §3's contrast invariant). Not used for text or icon foreground as of v0.4; see `accent-700`. |
 | `accent-500` | `#5E54F2` | Exactly two things, anywhere in the product: the Approve/Send action's fill, and the Approval tier's label color. Nothing else may use it at full strength — that scarcity is what makes it mean something. |
+| `accent-700` | `#4F46D0` | Added in v0.4 to close the contrast gap §3 flagged: a darker value in the same accent hue, for the Prepared-tier icon and label text specifically, where `accent-200` measured ~1.5:1 and failed WCAG AA. ~6.7:1 against `surface`/`surface-sunken`. Not a substitute for `accent-500` — visually and by rule distinct from it. |
 | `accent-on-dark` | `#8B85F7` | Supplementary text/icon accents on a dark (Approval-tier) surface, where accent-500 itself would be reserved for the label per the rule above. |
 
 ### Resolved-state glyphs — never fills
@@ -117,7 +118,7 @@ The rule is still "muted, not a fill" — we're extending *where* accent-200 is 
 
 **Accessibility — contrast (added this pass).** A tier color used as text or icon *foreground* must meet WCAG AA contrast (4.5:1 for normal text; 3:1 for large text or icons ≥24px) against the surface it actually renders on. A tier color used as a non-text element — a border, thread, or fill — is not held to that threshold, but per §4, must never be the sole carrier of meaning. This applies to all four tiers, not only Prepared Action.
 
-**Known gap, flagged rather than fixed by this pass.** `accent-200` as the Prepared-tier icon/label foreground measures roughly 1.5:1 against `surface`/`surface-sunken` — it fails the invariant above. The 3px thread may keep `accent-200` as-is, since a border is a non-text element. The icon and label need a WCAG-compliant foreground substitute; this document does not specify one — the replacement value is an implementation/token decision, not resolved here. `ok` (~4.2:1 on white) is a secondary, lower-priority watch item — marginal for small body text, passing for large text/UI components; not flagged as a failure.
+**Resolved in v0.5.** `accent-200` as the Prepared-tier icon/label foreground measured ~1.5:1 against `surface`/`surface-sunken` and failed the invariant above. The 3px thread keeps `accent-200`, since a border is a non-text element. The icon and label now use `accent-700` (§1) instead — a darker value in the same hue, ~6.7:1, distinct from the reserved `accent-500`. `ok` (~4.2:1 on white) remains a secondary, lower-priority watch item — marginal for small body text, passing for large text/UI components; not treated as a failure.
 
 ---
 
@@ -196,6 +197,15 @@ The following are commonly expected parts of a token architecture that this sour
 ---
 
 ## Version notes
+
+### v0.5
+
+Closes the gap v0.4 deliberately left open. Summary of changes:
+
+- Added `accent-700` (`#4F46D0`, §1) — a darker value in the same accent hue as `accent-200`/`accent-500`, selected to meet WCAG AA (~6.7:1 against `surface`/`surface-sunken`) for text/icon foreground use, while remaining visually and by-rule distinct from the reserved `accent-500`.
+- Reassigned the Prepared-tier icon and label (§3) from `accent-200` to `accent-700`. `accent-200` is now used only for the 3px thread — a non-text element, per v0.4's contrast invariant.
+- Updated `accent-200`'s §1 table entry to reflect its narrowed (thread-only) usage.
+- No change to §2, §4, §5, or §6. No product policy resolved. `accent-500`'s two-use scarcity (§1) is unaffected — `accent-700` is a distinct value, not a third use of it.
 
 ### v0.4
 
