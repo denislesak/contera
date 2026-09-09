@@ -2,7 +2,7 @@
 
 **Context System provenance:** This document is the canonical, authoritative presentation/visual-semantics layer — see `context/manifest.md` §2 (subordinate to `context/product.md` and `context/behaviors.md` for anything behavioral; must not introduce behavioral rules). It was originally migrated from `source/design-system.md`; that origin is historical provenance only (`context/manifest.md` §1) — `source/design-system.md` is not resynchronized with this document and carries no current authority. Only what is DEFINED or WORKING HYPOTHESIS below is implemented guidance — where the source material did not support a complete token architecture, that gap is carried into `context/data/design-tokens.json` explicitly rather than filled in.
 
-**Version:** 0.3
+**Version:** 0.4
 **Status:** Working design specification
 **Purpose:** Source of truth for Contera's visual presentation layer — color, type, elevation, and the governance-tier visual language. Governs *how things look*, never *what the product does*. It does not modify, and is not modified by, `product.md`, `behaviors.md`, `shadcn-implementation-analysis-v0.1.md`, or `components.md`. Where those documents define governance tiers, capability, or behavior, this document only defines how that meaning is rendered.
 
@@ -115,6 +115,10 @@ Unchanged from the prior revision: Finding/Recommendation (white, 1px gray-100 b
 
 The rule is still "muted, not a fill" — we're extending *where* accent-200 is allowed to appear (icon, label, thread), not loosening *how* it's allowed to appear (never a background).
 
+**Accessibility — contrast (added this pass).** A tier color used as text or icon *foreground* must meet WCAG AA contrast (4.5:1 for normal text; 3:1 for large text or icons ≥24px) against the surface it actually renders on. A tier color used as a non-text element — a border, thread, or fill — is not held to that threshold, but per §4, must never be the sole carrier of meaning. This applies to all four tiers, not only Prepared Action.
+
+**Known gap, flagged rather than fixed by this pass.** `accent-200` as the Prepared-tier icon/label foreground measures roughly 1.5:1 against `surface`/`surface-sunken` — it fails the invariant above. The 3px thread may keep `accent-200` as-is, since a border is a non-text element. The icon and label need a WCAG-compliant foreground substitute; this document does not specify one — the replacement value is an implementation/token decision, not resolved here. `ok` (~4.2:1 on white) is a secondary, lower-priority watch item — marginal for small body text, passing for large text/UI components; not flagged as a failure.
+
 ---
 
 ## 4. Icons
@@ -192,6 +196,15 @@ The following are commonly expected parts of a token architecture that this sour
 ---
 
 ## Version notes
+
+### v0.4
+
+Approved via human review, prompted by a contrast defect observed in the regenerated FEATURE-001 approval boundary (the always-visible Prepared Action block's `accent-200` icon and label). Summary of changes, confined to §3:
+
+- Added an accessibility-contrast invariant: a tier color used as text/icon foreground must meet WCAG AA contrast (4.5:1 normal text, 3:1 large text/icons ≥24px) against its actual rendered background; a tier color used as a non-text element (border, thread, fill) is exempt from that threshold but remains subject to §4's "never the sole carrier of meaning" rule. Applies to all four governance tiers, not only Prepared Action.
+- Flagged, not fixed: `accent-200` as the Prepared-tier icon/label foreground fails this invariant (~1.5:1 against `surface`/`surface-sunken`). No replacement value is specified — selecting one is an implementation/token decision left open by this pass. The `accent-200` thread itself is unaffected, since a border is a non-text element.
+- Flagged, non-blocking: `ok` (~4.2:1 on white) is marginal for small normal-weight text; not treated as a failure.
+- No change to §1, §2, §4, §5, or §6. No product policy resolved; no existing token value changed.
 
 ### v0.1
 
