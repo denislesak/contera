@@ -12,7 +12,7 @@ const CONTEXT_SYSTEM_INTRO =
   "Structured product knowledge that gives AI enough context to reason about what to build, how it should behave, what it is permitted to do, and how its output should be evaluated.";
 
 const DECISION_CONFIRMATION: Record<Exclude<HarnessDecision, "none">, string> = {
-  approved: "Approved for development.",
+  approved: "Direction approved.",
   "changes-requested": "Changes requested.",
   deferred: "Deferred.",
 };
@@ -160,7 +160,7 @@ export function ContereaPanel({
         open ? "translate-x-0" : "translate-x-full"
       )}
     >
-      <div className="flex items-center justify-between border-b border-threshold-gray-100 px-5 py-4">
+      <div className="sticky top-0 z-10 flex items-center justify-between border-b border-threshold-gray-100 bg-threshold-surface px-5 py-4">
         <div className="flex items-center gap-2">
           <Layers className="size-4 text-threshold-gray-500" />
           <div>
